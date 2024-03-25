@@ -744,7 +744,7 @@ limits_optimizations() {
 #    green_msg 'UFW is Installed & Optimized. (Open your custom ports manually.)'
 #    echo 
 #    sleep 0.5
-}
+
 
 
 # Show the Menu
