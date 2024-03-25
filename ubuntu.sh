@@ -1,19 +1,4 @@
 #!/bin/bash
-# https://github.com/hawshemi/Linux-Optimizer
-
-
-# Green, Yellow & Red Messages.
-green_msg() {
-    tput setaf 2
-    echo "[*] ----- $1"
-    tput sgr0
-}
-
-yellow_msg() {
-    tput setaf 3
-    echo "[*] ----- $1"
-    tput sgr0
-}
 
 red_msg() {
     tput setaf 1
