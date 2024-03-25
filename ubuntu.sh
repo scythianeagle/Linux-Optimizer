@@ -708,45 +708,6 @@ limits_optimizations() {
     sleep 0.5
 }
 
-
-# UFW Optimizations
-#ufw_optimizations() {
-#   echo
-#    yellow_msg 'Installing & Optimizing UFW...'
-#    echo 
-#    sleep 0.5
-
-    ## Purge firewalld to install UFW.
-#    sudo apt -y purge firewalld
-    
-    ## Install UFW if it isn't installed.
-#    sudo apt update -q
-#    sudo apt install -y ufw
-
-    ## Disable UFW
-#    sudo ufw disable
-
-    ## Open default ports.
-#    sudo ufw allow $SSH_PORT
-#    sudo ufw allow 80/tcp
-#   sudo ufw allow 80/udp
-#    sudo ufw allow 443/tcp
-#    sudo ufw allow 443/udp
-#    sleep 0.5
-
-    ## Change the UFW config to use System config.
-#    sed -i 's+/etc/ufw/sysctl.conf+/etc/sysctl.conf+gI' /etc/default/ufw
-
-    ## Enable & Reload
-#    echo "y" | sudo ufw enable
-#    sudo ufw reload
-#    echo 
-#    green_msg 'UFW is Installed & Optimized. (Open your custom ports manually.)'
-#    echo 
-#    sleep 0.5
-
-
-
 # Show the Menu
 show_menu() {
     echo 
