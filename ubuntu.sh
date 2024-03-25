@@ -950,10 +950,10 @@ main() {
 
             ask_reboot
             ;;
-#        13)
-#            find_ssh_port
-#            ufw_optimizations
-#            sleep 0.5
+        13)
+            find_ssh_port
+            ufw_optimizations
+            sleep 0.5
 
             echo 
             green_msg '========================='
