@@ -1,11 +1,5 @@
 #!/bin/bash
 
-red_msg() {
-    tput setaf 1
-    echo "[*] ----- $1"
-    tput sgr0
-}
-
 
 # Declare Paths & Settings.
 SYS_PATH="/etc/sysctl.conf"
