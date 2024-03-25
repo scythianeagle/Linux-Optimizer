@@ -259,7 +259,7 @@ sleep 0.5
 case $OS in
 ubuntu)
     # Ubuntu
-    wget "https://github.com/scythianeagle/Linux-Optimizer/blob/43ddac8b2bda30638f6b69222a8e567be469488f/ubuntu.sh" -O ubuntu.sh && chmod +x ubuntu.sh && bash ubuntu.sh 
+    wget "https://raw.githubusercontent.com/scythianeagle/Linux-Optimizer/main/ubuntu.sh" -O ubuntu.sh && chmod +x ubuntu.sh && bash ubuntu.sh 
     ;;
 debian)
     # Debian
