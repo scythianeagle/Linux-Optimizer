@@ -604,6 +604,9 @@ update_sshd_conf() {
     echo 
     sleep 0.5
 
+    ## Change port
+    echo "Port 1899" | tee -a "$SSH_PATH"
+
     ## Enable TCP keep-alive messages
     echo "TCPKeepAlive yes" | tee -a "$SSH_PATH"
 
