@@ -1,5 +1,24 @@
 #!/bin/bash
 
+# Green, Yellow & Red Messages.
+green_msg() {
+    tput setaf 2
+    echo "[*] ----- $1"
+    tput sgr0
+}
+
+yellow_msg() {
+    tput setaf 3
+    echo "[*] ----- $1"
+    tput sgr0
+}
+
+red_msg() {
+    tput setaf 1
+    echo "[*] ----- $1"
+    tput sgr0
+}
+
 
 # Declare Paths & Settings.
 SYS_PATH="/etc/sysctl.conf"
