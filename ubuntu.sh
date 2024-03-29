@@ -52,7 +52,7 @@ ask_reboot() {
     yellow_msg 'Reboot now? (Recommended) (y/n)'
     echo 
     while true; do
-        read choice
+        read -r choice
         echo 
         if [[ "$choice" == 'y' || "$choice" == 'Y' ]]; then
             sleep 0.5
@@ -595,7 +595,8 @@ remove_old_ssh_conf() {
         -e '/GatewayPorts/d' \
         -e '/PermitTunnel/d' \
         -e '/X11Forwarding/d' "$SSH_PATH"
-
+        
+        
 }
 # Update SSH config
 update_sshd_conf() {
@@ -661,7 +662,8 @@ limits_optimizations() {
     sed -i '/ulimit -v/d' $PROF_PATH
     sed -i '/ulimit -x/d' $PROF_PATH
     sed -i '/ulimit -s/d' $PROF_PATH
-    ## Add new ulimits
+
+        ## Add new ulimits
     ## The maximum size of core files created.
     echo "ulimit -c unlimited" | tee -a $PROF_PATH
 
@@ -742,7 +744,7 @@ show_menu() {
 main() {
     while true; do
         show_menu
-        read -p 'Enter Your Choice: ' choice
+        read  -r -p 'Enter Your Choice: ' choice
         case $choice in
         1)
             apply_everything
@@ -994,10 +996,10 @@ apply_everything() {
 
     limits_optimizations
     sleep 0.5
-
+    
+    find_ssh_port
+    sleep 0.5
 }
 
 
 main
-
-    
