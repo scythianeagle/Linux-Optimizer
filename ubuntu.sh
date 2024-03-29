@@ -208,16 +208,16 @@ installations() {
     sudo apt -y install apt-transport-https
 
     ## System utilities
-    sudo apt -y install apt-utils bash-completion busybox ca-certificates cron curl gnupg2 locales lsb-release nano preload screen software-properties-common ufw unzip vim wget xxd zip
+    sudo apt -y install apt-utils bash-completion curl nano screen  unzip wget
 
     ## Programming and development tools
-    sudo apt -y install autoconf automake bash-completion build-essential git libtool make pkg-config python3 python3-pip
+    sudo apt -y install git make pkg-config python3 python3-pip
 
     ## Additional libraries and dependencies
-    sudo apt -y install bc binutils binutils-common binutils-x86-64-linux-gnu ubuntu-keyring haveged jq libsodium-dev libsqlite3-dev libssl-dev packagekit qrencode socat
+    # sudo apt -y install bc binutils binutils-common binutils-x86-64-linux-gnu ubuntu-keyring haveged jq libsodium-dev libsqlite3-dev libssl-dev packagekit qrencode socat
 
     ## Miscellaneous
-    sudo apt -y install dialog htop net-tools
+    sudo apt -y install nethogs htop net-tools
 
     echo 
     green_msg 'Useful Packages Installed Succesfully.'
@@ -227,13 +227,13 @@ installations() {
 
 
 # Enable packages at server boot
-enable_packages() {
-    sudo systemctl enable cron haveged preload
-    echo 
-    green_msg 'Packages Enabled Succesfully.'
-    echo
-    sleep 0.5
-}
+#enable_packages() {
+#    sudo systemctl enable cron haveged preload
+#    echo 
+#    green_msg 'Packages Enabled Succesfully.'
+#    echo
+#    sleep 0.5
+#}
 
 
 ## Swap Maker
@@ -661,8 +661,6 @@ limits_optimizations() {
     sed -i '/ulimit -v/d' $PROF_PATH
     sed -i '/ulimit -x/d' $PROF_PATH
     sed -i '/ulimit -s/d' $PROF_PATH
-
-
     ## Add new ulimits
     ## The maximum size of core files created.
     echo "ulimit -c unlimited" | tee -a $PROF_PATH
@@ -734,9 +732,9 @@ show_menu() {
     green_msg '12 - Optimize the System Limits.'
     echo 
 #    green_msg '13 - Install & Optimize UFW.'
-    echo 
-    red_msg 'q - Exit.'
-    echo 
+#    echo 
+#    red_msg 'q - Exit.'
+#    echo 
 }
 
 
@@ -794,9 +792,9 @@ main() {
             limits_optimizations
             sleep 0.5
 
-            find_ssh_port
-            ufw_optimizations
-            sleep 0.5
+#            find_ssh_port
+#            ufw_optimizations
+#           sleep 0.5
 
             echo 
             green_msg '========================='
@@ -824,9 +822,9 @@ main() {
             limits_optimizations
             sleep 0.5
 
-            find_ssh_port
-            ufw_optimizations
-            sleep 0.5
+#            find_ssh_port
+#            ufw_optimizations
+#            sleep 0.5
 
             echo 
             green_msg '========================='
@@ -996,10 +994,10 @@ apply_everything() {
 
     limits_optimizations
     sleep 0.5
-    
-    find_ssh_port
-    sleep 0.5
+
 }
 
 
 main
+
+    
