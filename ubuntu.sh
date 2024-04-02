@@ -73,19 +73,19 @@ complete_update() {
     echo 
     sleep 0.5
 
-    sudo apt -q update
-    sudo apt -y upgrade
-    sudo apt -y full-upgrade
-    sudo apt -y autoremove
+     apt -q update
+     apt -y upgrade
+     apt -y full-upgrade
+     apt -y autoremove
     sleep 0.5
 
     ## Again :D
-    sudo apt -y -q autoclean
-    sudo apt -y clean
-    sudo apt -q update
-    sudo apt -y upgrade
-    sudo apt -y full-upgrade
-    sudo apt -y autoremove --purge
+     apt -y -q autoclean
+     apt -y clean
+     apt -q update
+     apt -y upgrade
+     apt -y full-upgrade
+     apt -y autoremove --purge
 
     echo 
     green_msg 'System Updated & Cleaned Successfully.'
@@ -129,9 +129,9 @@ install_xanmod() {
         sleep 0.5
 
         ## Update, Upgrade & Install dependencies
-        sudo apt update -q
-        sudo apt upgrade -y
-        sudo apt install wget curl gpg -y
+         apt update -q
+         apt upgrade -y
+         apt install wget curl gpg -y
 
         ## Check the CPU level
         cpu_level=$(awk -f - <<EOF
@@ -167,20 +167,20 @@ EOF
 
             # If we reach this point, it means we have a non-empty GPG file
             # Now dearmor the GPG key and move to the final location
-            sudo gpg --dearmor -o /usr/share/keyrings/xanmod-archive-keyring.gpg $tmp_keyring
+             gpg --dearmor -o /usr/share/keyrings/xanmod-archive-keyring.gpg $tmp_keyring
 
             # Clean up the temporary file
             rm -f $tmp_keyring
 
             ## Add the XanMod repository
-            echo 'deb [signed-by=/usr/share/keyrings/xanmod-archive-keyring.gpg] http://deb.xanmod.org releases main' | sudo tee /etc/apt/sources.list.d/xanmod-release.list
+            echo 'deb [signed-by=/usr/share/keyrings/xanmod-archive-keyring.gpg] http://deb.xanmod.org releases main' |  tee /etc/apt/sources.list.d/xanmod-release.list
             
             ## Install XanMod
-            sudo apt update -q && sudo apt install "linux-xanmod-x64v$cpu_level" -y
+             apt update -q &&  apt install "linux-xanmod-x64v$cpu_level" -y
 
             ## Clean up
-            sudo apt update -q
-            sudo apt autoremove --purge -y
+             apt update -q
+             apt autoremove --purge -y
             
             echo 
             green_msg "XanMod Kernel Installed. Reboot to Apply the new Kernel."
@@ -205,19 +205,19 @@ installations() {
     sleep 0.5
 
     ## Networking packages
-    sudo apt -y install apt-transport-https
+     apt -y install apt-transport-https
 
     ## System utilities
-    sudo apt -y install apt-utils bash-completion curl nano screen  unzip wget
+     apt -y install apt-utils bash-completion curl nano screen  unzip wget tmux nethogs
 
     ## Programming and development tools
-    sudo apt -y install git make pkg-config python3 python3-pip
+     apt -y install git make pkg-config python3 python3-pip
 
     ## Additional libraries and dependencies
-    # sudo apt -y install bc binutils binutils-common binutils-x86-64-linux-gnu ubuntu-keyring haveged jq libsodium-dev libsqlite3-dev libssl-dev packagekit qrencode socat
+    #  apt -y install bc binutils binutils-common binutils-x86-64-linux-gnu ubuntu-keyring haveged jq libsodium-dev libsqlite3-dev libssl-dev packagekit qrencode socat
 
     ## Miscellaneous
-    sudo apt -y install nethogs htop net-tools
+     apt -y install nethogs htop net-tools
 
     echo 
     green_msg 'Useful Packages Installed Succesfully.'
@@ -228,7 +228,7 @@ installations() {
 
 # Enable packages at server boot
 #enable_packages() {
-#    sudo systemctl enable cron haveged preload
+#     systemctl enable cron haveged preload
 #    echo 
 #    green_msg 'Packages Enabled Succesfully.'
 #    echo
@@ -244,10 +244,10 @@ swap_maker() {
     sleep 0.5
 
     ## Make Swap
-    sudo fallocate -l $SWAP_SIZE $SWAP_PATH  ## Allocate size
-    sudo chmod 600 $SWAP_PATH                ## Set proper permission
-    sudo mkswap $SWAP_PATH                   ## Setup swap         
-    sudo swapon $SWAP_PATH                   ## Enable swap
+     fallocate -l $SWAP_SIZE $SWAP_PATH  ## Allocate size
+     chmod 600 $SWAP_PATH                ## Set proper permission
+     mkswap $SWAP_PATH                   ## Setup swap         
+     swapon $SWAP_PATH                   ## Enable swap
     echo "$SWAP_PATH   none    swap    sw    0   0" >> /etc/fstab ## Add to fstab
     echo 
     green_msg 'SWAP Created Successfully.'
@@ -533,7 +533,7 @@ vm.dirty_ratio = 20
 
 EOF
 
-    sudo sysctl -p
+     sysctl -p
     
     echo 
     green_msg 'Network is Optimized.'
@@ -631,7 +631,7 @@ update_sshd_conf() {
     echo "X11Forwarding yes" | tee -a "$SSH_PATH"
 
     ## Restart the SSH service to apply the changes
-    sudo systemctl restart ssh
+     systemctl restart ssh
 
     echo 
     green_msg 'SSH is Optimized.'
@@ -733,7 +733,7 @@ show_menu() {
     green_msg '11 - Optimize the SSH settings.'
     green_msg '12 - Optimize the System Limits.'
     echo 
-#    green_msg '13 - Install & Optimize UFW.'
+#    green_msg '13 - Install & Optimize .'
 #    echo 
 #    red_msg 'q - Exit.'
 #    echo 
@@ -795,7 +795,7 @@ main() {
             sleep 0.5
 
 #            find_ssh_port
-#            ufw_optimizations
+#            _optimizations
 #           sleep 0.5
 
             echo 
@@ -825,7 +825,7 @@ main() {
             sleep 0.5
 
 #            find_ssh_port
-#            ufw_optimizations
+#            _optimizations
 #            sleep 0.5
 
             echo 
