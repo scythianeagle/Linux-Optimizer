@@ -208,16 +208,10 @@ installations() {
      apt -y install apt-transport-https
 
     ## System utilities
-     apt -y install apt-utils bash-completion curl nano screen  unzip wget tmux nethogs
+     apt -y install apt-utils bash-completion curl nano screen net-tools unzip wget tmux nethogs
 
     ## Programming and development tools
      apt -y install git make pkg-config python3 python3-pip
-
-    ## Additional libraries and dependencies
-    #  apt -y install bc binutils binutils-common binutils-x86-64-linux-gnu ubuntu-keyring haveged jq libsodium-dev libsqlite3-dev libssl-dev packagekit qrencode socat
-
-    ## Miscellaneous
-     apt -y install nethogs htop net-tools
 
     echo 
     green_msg 'Useful Packages Installed Succesfully.'
