@@ -348,7 +348,7 @@ fs.file-max = 67108864
 ## ----------------------------------------------------------------
 
 # Specify default queuing discipline for network devices
-net.core.default_qdisc = fq_codel
+#net.core.default_qdisc = fq_codel
 
 # Configure maximum network device backlog
 net.core.netdev_max_backlog = 32768
@@ -381,8 +381,8 @@ net.ipv4.tcp_rmem = 16384 1048576 33554432
 # Specify socket send buffer sizes
 net.ipv4.tcp_wmem = 16384 1048576 33554432
 
-# Set TCP congestion control algorithm to BBR
-net.ipv4.tcp_congestion_control = bbr
+# Set TCP congestion control algorithm to HYBLA
+net.ipv4.tcp_congestion_control = hybla
 
 # Configure TCP FIN timeout period
 net.ipv4.tcp_fin_timeout = 25
