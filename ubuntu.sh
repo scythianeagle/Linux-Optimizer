@@ -205,10 +205,10 @@ installations() {
     sleep 0.5
 
     ## Networking packages
-     apt -y install apt-transport-https
+     apt -y install apt-transport-https stunnel4 openssh-server bash-completion ca-certificates
 
     ## System utilities
-     apt -y install apt-utils bash-completion curl nano screen net-tools unzip wget tmux nethogs
+     apt -y install apt-utils curl nano screen net-tools unzip wget tmux nethogs
 
     ## Programming and development tools
      apt -y install git make pkg-config python3 python3-pip
@@ -995,5 +995,33 @@ apply_everything() {
     sleep 0.5
 }
 
+# Generate self-signed SSL certificate
+country=US
+state=New_York
+locality=New_York
+organization=atc
+organizationalunit=tower
+commonname=emam
+email=admin@hidessh.com
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/stunnel/stunnel.key -out /etc/stunnel/stunnel.crt -subj "/C=$country/ST=$state/L=$locality/O=$organization/OU=$organizationalunit/CN=$commonname/emailAddress=$email"
+
+# Create a stunnel configuration file
+sudo touch /etc/stunnel/stunnel.conf
+sudo tee -a /etc/stunnel/stunnel.conf > /dev/null <<EOT
+cert = /etc/stunnel/stunnel.crt
+key = /etc/stunnel/stunnel.key
+
+[ssh]
+accept = 444
+connect = 127.0.0.1:1899
+EOT
+
+# Enable stunnel service
+sudo sed -i 's/ENABLED=0/ENABLED=1/' /etc/default/stunnel4
+
+# Restart stunnel service
+sudo systemctl restart stunnel4
+
+echo "SSL tunnel setup completed!"
 
 main
