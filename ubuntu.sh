@@ -995,6 +995,8 @@ apply_everything() {
     sleep 0.5
 }
 
+main
+
 # Generate self-signed SSL certificate
 SSL_certificate() {
 country=US
@@ -1027,4 +1029,4 @@ echo "SSL tunnel setup completed!"
 
 }
 
-main
+
