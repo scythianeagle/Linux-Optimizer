@@ -308,7 +308,7 @@ cat <<EOF >> "$SYS_PATH"
 ## ----------------------------------------------------------------
 
 # Set the maximum number of open file descriptors
-fs.file-max = 67108864
+# fs.file-max = 67108864
 
 
 ## Network core settings
@@ -374,7 +374,7 @@ net.ipv4.tcp_congestion_control = cubic
 # net.ipv4.tcp_mem = 65536 1048576 33554432
 
 # Enable TCP MTU probing
-net.ipv4.tcp_mtu_probing = 1
+# net.ipv4.tcp_mtu_probing = 1
 
 # Define minimum amount of data in the send buffer before TCP starts sending
 # net.ipv4.tcp_notsent_lowat = 32768
@@ -463,12 +463,12 @@ vm.vfs_cache_pressure = 250
 ## ----------------------------------------------------------------
 
 # Configure reverse path filtering
-net.ipv4.conf.default.rp_filter = 2
-net.ipv4.conf.all.rp_filter = 2
+# net.ipv4.conf.default.rp_filter = 2
+# net.ipv4.conf.all.rp_filter = 2
 
 # Disable source route acceptance
-net.ipv4.conf.all.accept_source_route = 0
-net.ipv4.conf.default.accept_source_route = 0
+# net.ipv4.conf.all.accept_source_route = 0
+# net.ipv4.conf.default.accept_source_route = 0
 
 # Neighbor table settings
 # net.ipv4.neigh.default.gc_thresh1 = 512
@@ -477,9 +477,9 @@ net.ipv4.conf.default.accept_source_route = 0
 # net.ipv4.neigh.default.gc_stale_time = 60
 
 # ARP settings
-net.ipv4.conf.default.arp_announce = 2
-net.ipv4.conf.lo.arp_announce = 2
-net.ipv4.conf.all.arp_announce = 2
+# net.ipv4.conf.default.arp_announce = 2
+# net.ipv4.conf.lo.arp_announce = 2
+# net.ipv4.conf.all.arp_announce = 2
 
 # Kernel panic timeout
 kernel.panic = 1
