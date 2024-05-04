@@ -349,7 +349,7 @@ cat <<EOF >> "$SYS_PATH"
 # net.ipv4.tcp_wmem = 16384 1048576 33554432
 
 # Set TCP congestion control algorithm to HYBLA
-net.ipv4.tcp_congestion_control = cubic
+# net.ipv4.tcp_congestion_control = cubic
 
 # Configure TCP FIN timeout period
 # net.ipv4.tcp_fin_timeout = 25
@@ -383,24 +383,26 @@ net.ipv4.tcp_congestion_control = cubic
 # net.ipv4.tcp_retries2 = 8
 
 # Enable TCP SACK and DSACK
-net.ipv4.tcp_sack = 1
-net.ipv4.tcp_dsack = 1
+# net.ipv4.tcp_sack = 1
+# net.ipv4.tcp_dsack = 1
 
 # Disable TCP slow start after idle
 net.ipv4.tcp_slow_start_after_idle = 0
 
 # Enable TCP window scaling
-net.ipv4.tcp_window_scaling = 1
+# net.ipv4.tcp_window_scaling = 1
 # net.ipv4.tcp_adv_win_scale = -2
 
 # Enable TCP ECN
-net.ipv4.tcp_ecn = 1
-net.ipv4.tcp_ecn_fallback = 1
+# net.ipv4.tcp_ecn = 1
+# net.ipv4.tcp_ecn_fallback = 1
+# net.ipv4.tcp_ecn_fallback = 1
 
 # Enable the use of TCP SYN cookies to help protect against SYN flood attacks
-net.ipv4.tcp_syncookies = 1
+# net.ipv4.tcp_syncookies = 1
 
 # Emam config
+net.ipv4.tcp_mtu_probing = 1
 net.ipv4.ip_forward = 1
 net.ipv4.conf.all.rp_filter = 1
 net.ipv4.conf.default.rp_filter = 1
@@ -416,8 +418,33 @@ net.ipv4.conf.all.accept_source_route = 0
 net.ipv4.conf.default.accept_source_route = 0
 net.ipv6.conf.all.accept_source_route = 0
 net.ipv6.conf.default.accept_source_route = 0
-net.ipv6.conf.all.accept_ra = 0
-net.ipv6.conf.default.accept_ra = 0
+net.ipv4.tcp_dsack = 1
+net.ipv4.tcp_sack = 1
+net.ipv4.tcp_window_scaling = 1
+net.ipv4.tcp_tw_reuse = 0
+net.ipv4.tcp_max_tw_buckets = 5000
+net.ipv4.tcp_max_syn_backlog = 1024
+net.ipv4.tcp_syn_retries = 6
+net.ipv4.tcp_synack_retries = 2
+net.ipv4.tcp_syncookies = 1
+net.ipv4.tcp_abort_on_overflow = 0
+net.ipv4.tcp_fack = 1
+net.ipv4.tcp_ecn = 1
+net.ipv4.tcp_fastopen = 3
+net.ipv4.tcp_ecn_fallback = 1
+net.core.rmem_default = 212992
+net.core.rmem_max = 16777216
+net.core.wmem_default = 212992
+net.core.wmem_max = 16777216
+net.ipv4.tcp_moderate_rcvbuf = 1
+net.ipv4.tcp_mem = 4096 87380 16777216
+net.ipv4.tcp_rmem = 4096 87380 16777216
+net.ipv4.tcp_wmem = 4096 65536 16777216
+net.ipv4.tcp_low_latency = 1
+# net.core.default_qdisc = fq_codel
+net.ipv4.tcp_congestion_control = hybla
+net.ipv4.tcp_slow_start_after_idle = 0
+net.ipv4.tcp_timestamps = 1
 
 ## UDP settings
 ## ----------------------------------------------------------------
