@@ -26,7 +26,7 @@ PROF_PATH="/etc/profile"
 SSH_PORT=""
 SSH_PATH="/etc/ssh/sshd_config"
 SWAP_PATH="/swapfile"
-SWAP_SIZE=2G
+SWAP_SIZE=1G
 
 
 # Root
@@ -996,6 +996,7 @@ apply_everything() {
 }
 
 # Generate self-signed SSL certificate
+SSL_certificate() {
 country=US
 state=New_York
 locality=New_York
@@ -1023,5 +1024,7 @@ sudo sed -i 's/ENABLED=0/ENABLED=1/' /etc/default/stunnel4
 sudo systemctl restart stunnel4
 
 echo "SSL tunnel setup completed!"
+
+}
 
 main
