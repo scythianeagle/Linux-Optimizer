@@ -382,7 +382,7 @@ net.ipv4.tcp_rmem = 16384 1048576 33554432
 net.ipv4.tcp_wmem = 16384 1048576 33554432
 
 # Set TCP congestion control algorithm to HYBLA
-net.ipv4.tcp_congestion_control = hybla
+net.ipv4.tcp_congestion_control = cubic
 
 # Configure TCP FIN timeout period
 net.ipv4.tcp_fin_timeout = 25
