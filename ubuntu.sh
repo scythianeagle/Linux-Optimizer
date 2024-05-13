@@ -740,8 +740,7 @@ main() {
             complete_update
             sleep 0.5
 
-            installations
-            enable_packages
+            installations_enable_packages
             sleep 0.5
 
             swap_maker
