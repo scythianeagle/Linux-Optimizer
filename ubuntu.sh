@@ -308,98 +308,98 @@ cat <<EOF >> "$SYS_PATH"
 ## ----------------------------------------------------------------
 
 # Set the maximum number of open file descriptors
-# fs.file-max = 67108864
+fs.file-max = 67108864
 
 
 ## Network core settings
 ## ----------------------------------------------------------------
 
 # Specify default queuing discipline for network devices
-# net.core.default_qdisc = fq_codel
+net.core.default_qdisc = fq_codel
 
 # Configure maximum network device backlog
-# net.core.netdev_max_backlog = 32768
+net.core.netdev_max_backlog = 32768
 
 # Set maximum socket receive buffer
-# net.core.optmem_max = 262144
+net.core.optmem_max = 262144
 
 # Define maximum backlog of pending connections
-# net.core.somaxconn = 65536
+net.core.somaxconn = 65536
 
 # Configure maximum TCP receive buffer size
-# net.core.rmem_max = 33554432
+net.core.rmem_max = 33554432
 
 # Set default TCP receive buffer size
-# net.core.rmem_default = 1048576
+net.core.rmem_default = 1048576
 
 # Configure maximum TCP send buffer size
-# net.core.wmem_max = 33554432
+net.core.wmem_max = 33554432
 
 # Set default TCP send buffer size
-# net.core.wmem_default = 1048576
+net.core.wmem_default = 1048576
 
 
 ## TCP settings
 ## ----------------------------------------------------------------
 
 # Define socket receive buffer sizes
-# net.ipv4.tcp_rmem = 16384 1048576 33554432
+net.ipv4.tcp_rmem = 16384 1048576 33554432
 
 # Specify socket send buffer sizes
-# net.ipv4.tcp_wmem = 16384 1048576 33554432
+net.ipv4.tcp_wmem = 16384 1048576 33554432
 
 # Set TCP congestion control algorithm to HYBLA
-# net.ipv4.tcp_congestion_control = cubic
+net.ipv4.tcp_congestion_control = cubic
 
 # Configure TCP FIN timeout period
-# net.ipv4.tcp_fin_timeout = 25
+net.ipv4.tcp_fin_timeout = 25
 
 # Set keepalive time (seconds)
-# net.ipv4.tcp_keepalive_time = 1200
+net.ipv4.tcp_keepalive_time = 1200
 
 # Configure keepalive probes count and interval
-# net.ipv4.tcp_keepalive_probes = 7
-# net.ipv4.tcp_keepalive_intvl = 30
+net.ipv4.tcp_keepalive_probes = 7
+net.ipv4.tcp_keepalive_intvl = 30
 
 # Define maximum orphaned TCP sockets
-# net.ipv4.tcp_max_orphans = 819200
+net.ipv4.tcp_max_orphans = 819200
 
 # Set maximum TCP SYN backlog
-# net.ipv4.tcp_max_syn_backlog = 20480
+net.ipv4.tcp_max_syn_backlog = 20480
 
 # Configure maximum TCP Time Wait buckets
-# net.ipv4.tcp_max_tw_buckets = 1440000
+net.ipv4.tcp_max_tw_buckets = 1440000
 
 # Define TCP memory limits
-# net.ipv4.tcp_mem = 65536 1048576 33554432
+net.ipv4.tcp_mem = 65536 1048576 33554432
 
 # Enable TCP MTU probing
-# net.ipv4.tcp_mtu_probing = 1
+net.ipv4.tcp_mtu_probing = 1
 
 # Define minimum amount of data in the send buffer before TCP starts sending
-# net.ipv4.tcp_notsent_lowat = 32768
+net.ipv4.tcp_notsent_lowat = 32768
 
 # Specify retries for TCP socket to establish connection
-# net.ipv4.tcp_retries2 = 8
+net.ipv4.tcp_retries2 = 8
 
 # Enable TCP SACK and DSACK
-# net.ipv4.tcp_sack = 1
-# net.ipv4.tcp_dsack = 1
+net.ipv4.tcp_sack = 1
+net.ipv4.tcp_dsack = 1
 
 # Disable TCP slow start after idle
 net.ipv4.tcp_slow_start_after_idle = 0
 
 # Enable TCP window scaling
-# net.ipv4.tcp_window_scaling = 1
-# net.ipv4.tcp_adv_win_scale = -2
+net.ipv4.tcp_window_scaling = 1
+net.ipv4.tcp_adv_win_scale = -2
 
 # Enable TCP ECN
-# net.ipv4.tcp_ecn = 1
-# net.ipv4.tcp_ecn_fallback = 1
-# net.ipv4.tcp_ecn_fallback = 1
+net.ipv4.tcp_ecn = 1
+net.ipv4.tcp_ecn_fallback = 1
+net.ipv4.tcp_ecn_fallback = 1
 
 # Enable the use of TCP SYN cookies to help protect against SYN flood attacks
-# net.ipv4.tcp_syncookies = 1
+net.ipv4.tcp_syncookies = 1
 
 # Emam config
 net.ipv4.ip_forward = 1
@@ -418,16 +418,16 @@ net.ipv4.conf.default.accept_source_route = 0
 net.ipv6.conf.all.accept_source_route = 0
 net.ipv6.conf.default.accept_source_route = 0
 net.ipv4.tcp_ecn = 1
-net.ipv4.tcp_fastopen = 3
+# net.ipv4.tcp_fastopen = 3
 net.core.default_qdisc = fq_codel
-net.ipv4.tcp_congestion_control = bbr3
+net.ipv4.tcp_congestion_control = bbr
 
 
 ## UDP settings
 ## ----------------------------------------------------------------
 
 # Define UDP memory limits
-# net.ipv4.udp_mem = 65536 1048576 33554432
+net.ipv4.udp_mem = 65536 1048576 33554432
 
 
 ## IPv6 settings
