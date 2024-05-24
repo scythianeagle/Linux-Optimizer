@@ -324,7 +324,7 @@ net.ipv4.tcp_syncookies = 1
 # reuse timewait sockets when safe
 net.ipv4.tcp_tw_reuse = 1
 # turn off fast timewait sockets recycling
-net.ipv4.tcp_tw_recycle = 0
+# net.ipv4.tcp_tw_recycle = 0
 # short FIN timeout
 net.ipv4.tcp_fin_timeout = 30
 # short keepalive time
@@ -362,8 +362,8 @@ net.ipv6.conf.all.accept_source_route = 0
 net.ipv6.conf.default.accept_source_route = 0
 net.ipv4.tcp_ecn = 1
 # net.ipv4.tcp_fastopen = 3
-net.core.default_qdisc = fq_codel
-net.ipv4.tcp_congestion_control = bbr
+# net.core.default_qdisc = fq_codel
+net.ipv4.tcp_congestion_control = cubic
 
 
 ## UDP settings
