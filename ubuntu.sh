@@ -363,7 +363,7 @@ net.ipv6.conf.default.accept_source_route = 0
 net.ipv4.tcp_ecn = 1
 # net.ipv4.tcp_fastopen = 3
 # net.core.default_qdisc = fq_codel
-net.ipv4.tcp_congestion_control = cubic
+net.ipv4.tcp_congestion_control = hybla
 
 
 ## UDP settings
