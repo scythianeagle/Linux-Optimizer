@@ -336,7 +336,7 @@ net.ipv4.tcp_rmem = 4096 87380 67108864
 # TCP write buffer
 net.ipv4.tcp_wmem = 4096 65536 67108864
 # turn on path MTU discovery
-net.ipv4.tcp_mtu_probing = 1
+# net.ipv4.tcp_mtu_probing = 1
 
 # Emam config
 net.ipv4.ip_forward = 1
@@ -355,7 +355,7 @@ net.ipv4.conf.default.accept_source_route = 0
 net.ipv6.conf.all.accept_source_route = 0
 net.ipv6.conf.default.accept_source_route = 0
 net.ipv4.tcp_ecn = 1
-# net.ipv4.tcp_fastopen = 3
+net.ipv4.tcp_fastopen = 3
 # net.core.default_qdisc = fq_codel
 net.ipv4.tcp_congestion_control = hybla
 
