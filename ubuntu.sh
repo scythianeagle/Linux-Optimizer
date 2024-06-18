@@ -205,14 +205,8 @@ installations() {
     sleep 0.5
 
     ## Networking packages
-     apt -y install apt-transport-https stunnel4 openssh-server bash-completion ca-certificates
-
-    ## System utilities
-     apt -y install apt-utils curl nano screen net-tools unzip wget tmux nethogs
-
-    ## Programming and development tools
-     apt -y install git make pkg-config python3 python3-pip
-
+     apt -y install apt-transport-https stunnel4 openssh-server bash-completion ca-certificates apt-utils curl nano screen net-tools unzip wget tmux nethogs git pkg-config python3 python3-pip
+   
     echo 
     green_msg 'Useful Packages Installed Succesfully.'
     echo 
