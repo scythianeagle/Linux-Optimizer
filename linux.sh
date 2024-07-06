@@ -102,7 +102,7 @@ fix_etc_hosts(){
   yellow_msg "Default hosts file saved. Directory: /etc/hosts.bak"
   sleep 0.5
 
-  if ! grep -q $(hostname) $HOST_PATH; then
+  if ! grep -q "$(hostname)""$HOST_PATH"; then
     echo "127.0.1.1 $(hostname)" | sudo tee -a $HOST_PATH > /dev/null
     green_msg "Hosts Fixed."
     echo 
@@ -282,4 +282,3 @@ unknown)
     exit 
     ;;
 esac
-
