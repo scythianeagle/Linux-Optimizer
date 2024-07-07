@@ -93,26 +93,29 @@ install_dependencies_rhel_based() {
 
 
 # Fix Hosts file
-fix_etc_hosts(){ 
-  echo 
-  yellow_msg "Fixing Hosts file."
-  sleep 0.5
+# fix_etc_hosts(){ 
+#   echo 
+#   yellow_msg "Fixing Hosts file."
+#   sleep 0.5
 
-  cp $HOST_PATH /etc/hosts.bak
-  yellow_msg "Default hosts file saved. Directory: /etc/hosts.bak"
-  sleep 0.5
-
-  if ! grep -q "$(hostname)""$HOST_PATH"; then
-    echo "127.0.1.1 $(hostname)" | sudo tee -a $HOST_PATH > /dev/null
-    green_msg "Hosts Fixed."
-    echo 
-    sleep 0.5
-  else
-    green_msg "Hosts OK. No changes made."
-    echo 
-    sleep 0.5
-  fi
-}
+#   cp $HOST_PATH /etc/hosts.bak
+#   yellow_msg "Default hosts file saved. Directory: /etc/hosts.bak"
+# 
+#   if ! grep -q "$(hostname)""$HOST_PATH"; then
+#   if ! grep -q "$(hostname)""$HOST_PATH"; then
+#   if ! grep -q "$(hostname)""$HOST_PATH"; then
+#   if ! grep -q "$(hostname)""$HOST_PATH"; then
+#   if ! grep -q "$(hostname)""$HOST_PATH"; then
+#     echo "127.0.1.1 $(hostname)" | sudo tee -a $HOST_PATH > /dev/null
+#   if ! grep -q "$(hostname)""$HOST_PATH"; then
+#     green_msg "Hosts Fixed."
+#     echo 
+#     sleep 0.5
+#   else
+#     green_msg "Hosts OK. No changes made."
+#     echo 
+#   fi
+# }
 
 
 # Fix DNS Temporarly
