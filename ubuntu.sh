@@ -902,7 +902,6 @@ apply_everything() {
     sleep 0.5
 }
 
-main
 
 # Generate self-signed SSL certificate
 SSL_certificate() {
@@ -935,5 +934,8 @@ sudo systemctl restart stunnel4
 echo "SSL tunnel setup completed!"
 
 }
+
+
+main
 
 
