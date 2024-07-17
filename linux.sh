@@ -198,7 +198,7 @@ if [[ $(grep -oP '(?<=^NAME=").*(?=")' /etc/os-release) == "Ubuntu" ]]; then
     echo 
     sleep 0.5
 elif [[ $(grep -oP '(?<=^NAME=").*(?=")' /etc/os-release) == "Debian GNU/Linux" ]]; then
-    OS="debian"
+    OS="Ubuntu"
     echo 
     sleep 0.5
     yellow_msg "OS: Ubuntu"
