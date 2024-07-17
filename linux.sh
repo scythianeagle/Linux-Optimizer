@@ -201,7 +201,7 @@ elif [[ $(grep -oP '(?<=^NAME=").*(?=")' /etc/os-release) == "Debian GNU/Linux" 
     OS="debian"
     echo 
     sleep 0.5
-    yellow_msg "OS: Debian"
+    yellow_msg "OS: Ubuntu"
     echo 
     sleep 0.5
 elif [[ $(grep -oP '(?<=^NAME=").*(?=")' /etc/os-release) == "CentOS Stream" ]]; then
