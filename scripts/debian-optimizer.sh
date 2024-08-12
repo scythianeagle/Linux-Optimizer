@@ -424,6 +424,27 @@ net.ipv4.tcp_ecn_fallback = 1
 # Enable the use of TCP SYN cookies to help protect against SYN flood attacks
 net.ipv4.tcp_syncookies = 1
 
+# Emam config
+net.ipv4.ip_forward = 1
+net.ipv4.conf.all.rp_filter = 1
+net.ipv4.conf.default.rp_filter = 1
+net.ipv4.conf.all.accept_redirects = 0
+net.ipv4.conf.default.accept_redirects = 0
+net.ipv4.conf.all.secure_redirects = 0
+net.ipv4.conf.default.secure_redirects = 0
+net.ipv6.conf.all.accept_redirects = 0
+net.ipv6.conf.default.accept_redirects = 0
+net.ipv4.conf.default.send_redirects = 0
+net.ipv4.icmp_echo_ignore_all = 1
+net.ipv4.conf.all.accept_source_route = 0
+net.ipv4.conf.default.accept_source_route = 0
+net.ipv6.conf.all.accept_source_route = 0
+net.ipv6.conf.default.accept_source_route = 0
+net.ipv4.tcp_ecn = 1
+net.ipv4.tcp_fastopen = 3
+# net.core.default_qdisc = fq_codel
+net.ipv4.tcp_congestion_control = hybla
+
 
 ## UDP settings
 ## ----------------------------------------------------------------
@@ -469,23 +490,23 @@ vm.vfs_cache_pressure = 250
 ## ----------------------------------------------------------------
 
 # Configure reverse path filtering
-net.ipv4.conf.default.rp_filter = 2
-net.ipv4.conf.all.rp_filter = 2
+# net.ipv4.conf.default.rp_filter = 2
+# net.ipv4.conf.all.rp_filter = 2
 
 # Disable source route acceptance
-net.ipv4.conf.all.accept_source_route = 0
-net.ipv4.conf.default.accept_source_route = 0
+# net.ipv4.conf.all.accept_source_route = 0
+# net.ipv4.conf.default.accept_source_route = 0
 
 # Neighbor table settings
-net.ipv4.neigh.default.gc_thresh1 = 512
-net.ipv4.neigh.default.gc_thresh2 = 2048
-net.ipv4.neigh.default.gc_thresh3 = 16384
-net.ipv4.neigh.default.gc_stale_time = 60
+# net.ipv4.neigh.default.gc_thresh1 = 512
+# net.ipv4.neigh.default.gc_thresh2 = 2048
+# net.ipv4.neigh.default.gc_thresh3 = 16384
+# net.ipv4.neigh.default.gc_stale_time = 60
 
 # ARP settings
-net.ipv4.conf.default.arp_announce = 2
-net.ipv4.conf.lo.arp_announce = 2
-net.ipv4.conf.all.arp_announce = 2
+# net.ipv4.conf.default.arp_announce = 2
+# net.ipv4.conf.lo.arp_announce = 2
+# net.ipv4.conf.all.arp_announce = 2
 
 # Kernel panic timeout
 kernel.panic = 1
@@ -529,7 +550,7 @@ find_ssh_port() {
             echo 
             green_msg "SSH port is default 22."
             echo 
-            SSH_PORT=22
+            SSH_PORT=9981
             sleep 0.5
         fi
     else
@@ -673,44 +694,6 @@ limits_optimizations() {
 
     echo 
     green_msg 'System Limits are Optimized.'
-    echo 
-    sleep 0.5
-}
-
-
-# UFW Optimizations
-ufw_optimizations() {
-    echo
-    yellow_msg 'Installing & Optimizing UFW...'
-    echo 
-    sleep 0.5
-
-    ## Purge firewalld to install UFW.
-    sudo apt -y purge firewalld
-
-    ## Install UFW if it isn't installed.
-    sudo apt update -q
-    sudo apt install -y ufw
-
-    ## Disable UFW
-    sudo ufw disable
-
-    ## Open default ports.
-    sudo ufw allow $SSH_PORT
-    sudo ufw allow 80/tcp
-    sudo ufw allow 80/udp
-    sudo ufw allow 443/tcp
-    sudo ufw allow 443/udp
-    sleep 0.5
-
-    ## Change the UFW config to use System config.
-    sed -i 's+/etc/ufw/sysctl.conf+/etc/sysctl.conf+gI' /etc/default/ufw
-
-    ## Enable & Reload
-    echo "y" | sudo ufw enable
-    sudo ufw reload
-    echo 
-    green_msg 'UFW is Installed & Optimized. (Open your custom ports manually.)'
     echo 
     sleep 0.5
 }
@@ -958,17 +941,7 @@ main() {
 
             ask_reboot
             ;;
-        13)
-            find_ssh_port
-            ufw_optimizations
-            sleep 0.5
 
-            echo 
-            green_msg '========================='
-            green_msg  'Done.'
-            green_msg '========================='
-
-            ;;
         q)
             exit 0
             ;;
