@@ -304,7 +304,7 @@ net.ipv4.tcp_slow_start_after_idle = 0
 net.ipv4.tcp_window_scaling = 1
 net.ipv4.tcp_adv_win_scale = -2
 
-net.ipv4.tcp_ecn = 1
+# net.ipv4.tcp_ecn = 1
 net.ipv4.tcp_ecn_fallback = 1
 net.ipv4.tcp_syncookies = 1
 vm.swappiness = 10
