@@ -1,6 +1,4 @@
 #!/bin/bash
-# https://github.com/hawshemi/Linux-Optimizer
-
 
 # Green, Yellow & Red Messages.
 green_msg() {
@@ -28,7 +26,7 @@ PROF_PATH="/etc/profile"
 SSH_PORT=""
 SSH_PATH="/etc/ssh/sshd_config"
 SWAP_PATH="/swapfile"
-SWAP_SIZE=2G
+SWAP_SIZE=1G
 
 
 # Root
@@ -54,7 +52,7 @@ ask_reboot() {
     yellow_msg 'Reboot now? (Recommended) (y/n)'
     echo 
     while true; do
-        read choice
+        read -r choice
         echo 
         if [[ "$choice" == 'y' || "$choice" == 'Y' ]]; then
             sleep 0.5
@@ -75,19 +73,19 @@ complete_update() {
     echo 
     sleep 0.5
 
-    sudo apt -q update
-    sudo apt -y upgrade
-    sudo apt -y full-upgrade
-    sudo apt -y autoremove
+     apt -q update
+     apt -y upgrade
+     apt -y full-upgrade
+     apt -y autoremove
     sleep 0.5
 
     ## Again :D
-    sudo apt -y -q autoclean
-    sudo apt -y clean
-    sudo apt -q update
-    sudo apt -y upgrade
-    sudo apt -y full-upgrade
-    sudo apt -y autoremove --purge
+     apt -y -q autoclean
+     apt -y clean
+     apt -q update
+     apt -y upgrade
+     apt -y full-upgrade
+     apt -y autoremove --purge
 
     echo 
     green_msg 'System Updated & Cleaned Successfully.'
@@ -131,9 +129,9 @@ install_xanmod() {
         sleep 0.5
 
         ## Update, Upgrade & Install dependencies
-        sudo apt update -q
-        sudo apt upgrade -y
-        sudo apt install wget curl gpg -y
+         apt update -q
+         apt upgrade -y
+         apt install wget curl gpg -y
 
         ## Check the CPU level
         cpu_level=$(awk -f - <<EOF
@@ -169,20 +167,20 @@ EOF
 
             # If we reach this point, it means we have a non-empty GPG file
             # Now dearmor the GPG key and move to the final location
-            sudo gpg --dearmor -o /usr/share/keyrings/xanmod-archive-keyring.gpg $tmp_keyring
+             gpg --dearmor -o /usr/share/keyrings/xanmod-archive-keyring.gpg $tmp_keyring
 
             # Clean up the temporary file
             rm -f $tmp_keyring
 
             ## Add the XanMod repository
-            echo 'deb [signed-by=/usr/share/keyrings/xanmod-archive-keyring.gpg] http://deb.xanmod.org releases main' | sudo tee /etc/apt/sources.list.d/xanmod-release.list
+            echo 'deb [signed-by=/usr/share/keyrings/xanmod-archive-keyring.gpg] http://deb.xanmod.org releases main' |  tee /etc/apt/sources.list.d/xanmod-release.list
             
             ## Install XanMod
-            sudo apt update -q && sudo apt install "linux-xanmod-x64v$cpu_level" -y
+             apt update -q &&  apt install "linux-xanmod-x64v$cpu_level" -y
 
             ## Clean up
-            sudo apt update -q
-            sudo apt autoremove --purge -y
+             apt update -q
+             apt autoremove --purge -y
             
             echo 
             green_msg "XanMod Kernel Installed. Reboot to Apply the new Kernel."
@@ -207,20 +205,8 @@ installations() {
     sleep 0.5
 
     ## Networking packages
-    sudo apt -y install apt-transport-https
-
-    ## System utilities
-    sudo apt -y install apt-utils bash-completion busybox ca-certificates cron curl gnupg2 locales lsb-release nano preload screen software-properties-common unzip vim wget xxd zip
-
-    ## Programming and development tools
-    sudo apt -y install autoconf automake bash-completion build-essential git libtool make pkg-config python3 python3-pip
-
-    ## Additional libraries and dependencies
-    sudo apt -y install bc binutils binutils-common binutils-x86-64-linux-gnu ubuntu-keyring haveged jq libsodium-dev libsqlite3-dev libssl-dev packagekit qrencode socat
-
-    ## Miscellaneous
-    sudo apt -y install dialog htop net-tools
-
+     apt -y install apt-transport-https stunnel4 openssh-server bash-completion ca-certificates apt-utils curl nano screen net-tools unzip wget tmux nethogs git pkg-config python3 python3-pip
+   
     echo 
     green_msg 'Useful Packages Installed Succesfully.'
     echo 
@@ -229,13 +215,13 @@ installations() {
 
 
 # Enable packages at server boot
-enable_packages() {
-    sudo systemctl enable cron haveged preload
-    echo 
-    green_msg 'Packages Enabled Succesfully.'
-    echo
-    sleep 0.5
-}
+#enable_packages() {
+#     systemctl enable cron haveged preload
+#    echo 
+#    green_msg 'Packages Enabled Succesfully.'
+#    echo
+#    sleep 0.5
+#}
 
 
 ## Swap Maker
@@ -246,10 +232,10 @@ swap_maker() {
     sleep 0.5
 
     ## Make Swap
-    sudo fallocate -l $SWAP_SIZE $SWAP_PATH  ## Allocate size
-    sudo chmod 600 $SWAP_PATH                ## Set proper permission
-    sudo mkswap $SWAP_PATH                   ## Setup swap         
-    sudo swapon $SWAP_PATH                   ## Enable swap
+     fallocate -l $SWAP_SIZE $SWAP_PATH  ## Allocate size
+     chmod 600 $SWAP_PATH                ## Set proper permission
+     mkswap $SWAP_PATH                   ## Setup swap         
+     swapon $SWAP_PATH                   ## Enable swap
     echo "$SWAP_PATH   none    swap    sw    0   0" >> /etc/fstab ## Add to fstab
     echo 
     green_msg 'SWAP Created Successfully.'
@@ -274,58 +260,20 @@ sysctl_optimizations() {
     sleep 0.5
 
     sed -i -e '/fs.file-max/d' \
-        -e '/net.core.default_qdisc/d' \
-        -e '/net.core.netdev_max_backlog/d' \
-        -e '/net.core.optmem_max/d' \
-        -e '/net.core.somaxconn/d' \
-        -e '/net.core.rmem_max/d' \
-        -e '/net.core.wmem_max/d' \
-        -e '/net.core.rmem_default/d' \
-        -e '/net.core.wmem_default/d' \
-        -e '/net.ipv4.tcp_rmem/d' \
-        -e '/net.ipv4.tcp_wmem/d' \
-        -e '/net.ipv4.tcp_congestion_control/d' \
-        -e '/net.ipv4.tcp_fastopen/d' \
-        -e '/net.ipv4.tcp_fin_timeout/d' \
-        -e '/net.ipv4.tcp_keepalive_time/d' \
-        -e '/net.ipv4.tcp_keepalive_probes/d' \
-        -e '/net.ipv4.tcp_keepalive_intvl/d' \
-        -e '/net.ipv4.tcp_max_orphans/d' \
-        -e '/net.ipv4.tcp_max_syn_backlog/d' \
-        -e '/net.ipv4.tcp_max_tw_buckets/d' \
-        -e '/net.ipv4.tcp_mem/d' \
-        -e '/net.ipv4.tcp_mtu_probing/d' \
-        -e '/net.ipv4.tcp_notsent_lowat/d' \
-        -e '/net.ipv4.tcp_retries2/d' \
-        -e '/net.ipv4.tcp_sack/d' \
         -e '/net.ipv4.tcp_dsack/d' \
         -e '/net.ipv4.tcp_slow_start_after_idle/d' \
         -e '/net.ipv4.tcp_window_scaling/d' \
-        -e '/net.ipv4.tcp_adv_win_scale/d' \
         -e '/net.ipv4.tcp_ecn/d' \
         -e '/net.ipv4.tcp_ecn_fallback/d' \
         -e '/net.ipv4.tcp_syncookies/d' \
-        -e '/net.ipv4.udp_mem/d' \
-        -e '/net.ipv6.conf.all.disable_ipv6/d' \
-        -e '/net.ipv6.conf.default.disable_ipv6/d' \
-        -e '/net.ipv6.conf.lo.disable_ipv6/d' \
         -e '/net.unix.max_dgram_qlen/d' \
-        -e '/vm.min_free_kbytes/d' \
         -e '/vm.swappiness/d' \
-        -e '/vm.vfs_cache_pressure/d' \
         -e '/net.ipv4.conf.default.rp_filter/d' \
         -e '/net.ipv4.conf.all.rp_filter/d' \
         -e '/net.ipv4.conf.all.accept_source_route/d' \
         -e '/net.ipv4.conf.default.accept_source_route/d' \
-        -e '/net.ipv4.neigh.default.gc_thresh1/d' \
-        -e '/net.ipv4.neigh.default.gc_thresh2/d' \
-        -e '/net.ipv4.neigh.default.gc_thresh3/d' \
-        -e '/net.ipv4.neigh.default.gc_stale_time/d' \
-        -e '/net.ipv4.conf.default.arp_announce/d' \
         -e '/net.ipv4.conf.lo.arp_announce/d' \
         -e '/net.ipv4.conf.all.arp_announce/d' \
-        -e '/kernel.panic/d' \
-        -e '/vm.dirty_ratio/d' \
         -e '/^#/d' \
         -e '/^$/d' \
         "$SYS_PATH"
@@ -345,174 +293,23 @@ cat <<EOF >> "$SYS_PATH"
 # Read More: https://github.com/hawshemi/Linux-Optimizer/blob/main/files/sysctl.conf
 
 
-## File system settings
-## ----------------------------------------------------------------
-
-# Set the maximum number of open file descriptors
+net.ipv4.ip_forward = 1
 fs.file-max = 67108864
-
-
-## Network core settings
-## ----------------------------------------------------------------
-
-# Specify default queuing discipline for network devices
-net.core.default_qdisc = fq_codel
-
-# Configure maximum network device backlog
-net.core.netdev_max_backlog = 32768
-
-# Set maximum socket receive buffer
-net.core.optmem_max = 262144
-
-# Define maximum backlog of pending connections
-net.core.somaxconn = 65536
-
-# Configure maximum TCP receive buffer size
-net.core.rmem_max = 33554432
-
-# Set default TCP receive buffer size
-net.core.rmem_default = 1048576
-
-# Configure maximum TCP send buffer size
-net.core.wmem_max = 33554432
-
-# Set default TCP send buffer size
-net.core.wmem_default = 1048576
-
-
-## TCP settings
-## ----------------------------------------------------------------
-
-# Define socket receive buffer sizes
-net.ipv4.tcp_rmem = 16384 1048576 33554432
-
-# Specify socket send buffer sizes
-net.ipv4.tcp_wmem = 16384 1048576 33554432
-
-# Set TCP congestion control algorithm to BBR
-#net.ipv4.tcp_congestion_control = bbr
-
-# Configure TCP FIN timeout period
-net.ipv4.tcp_fin_timeout = 25
-
-# Set keepalive time (seconds)
 net.ipv4.tcp_keepalive_time = 1200
-
-# Configure keepalive probes count and interval
 net.ipv4.tcp_keepalive_probes = 7
 net.ipv4.tcp_keepalive_intvl = 30
-
-# Define maximum orphaned TCP sockets
-net.ipv4.tcp_max_orphans = 819200
-
-# Set maximum TCP SYN backlog
-net.ipv4.tcp_max_syn_backlog = 20480
-
-# Configure maximum TCP Time Wait buckets
-net.ipv4.tcp_max_tw_buckets = 1440000
-
-# Define TCP memory limits
-net.ipv4.tcp_mem = 65536 1048576 33554432
-
-# Enable TCP MTU probing
-#net.ipv4.tcp_mtu_probing = 1
-
-# Define minimum amount of data in the send buffer before TCP starts sending
-net.ipv4.tcp_notsent_lowat = 32768
-
-# Specify retries for TCP socket to establish connection
-net.ipv4.tcp_retries2 = 8
-
-# Enable TCP SACK and DSACK
 net.ipv4.tcp_sack = 1
 net.ipv4.tcp_dsack = 1
-
-# Disable TCP slow start after idle
 net.ipv4.tcp_slow_start_after_idle = 0
-
-# Enable TCP window scaling
 net.ipv4.tcp_window_scaling = 1
 net.ipv4.tcp_adv_win_scale = -2
 
-# Enable TCP ECN
-#net.ipv4.tcp_ecn = 1
-#net.ipv4.tcp_ecn_fallback = 1
-
-# Enable the use of TCP SYN cookies to help protect against SYN flood attacks
+# net.ipv4.tcp_ecn = 1
+# net.ipv4.tcp_ecn_fallback = 1
 net.ipv4.tcp_syncookies = 1
-
-
-## UDP settings
-## ----------------------------------------------------------------
-
-# Define UDP memory limits
-net.ipv4.udp_mem = 65536 1048576 33554432
-
-
-## IPv6 settings
-## ----------------------------------------------------------------
-
-# Enable IPv6
-net.ipv6.conf.all.disable_ipv6 = 0
-
-# Enable IPv6 by default
-net.ipv6.conf.default.disable_ipv6 = 0
-
-# Enable IPv6 on the loopback interface (lo)
-net.ipv6.conf.lo.disable_ipv6 = 0
-
-
-## UNIX domain sockets
-## ----------------------------------------------------------------
-
-# Set maximum queue length of UNIX domain sockets
-net.unix.max_dgram_qlen = 256
-
-
-## Virtual memory (VM) settings
-## ----------------------------------------------------------------
-
-# Specify minimum free Kbytes at which VM pressure happens
-vm.min_free_kbytes = 65536
-
-# Define how aggressively swap memory pages are used
 vm.swappiness = 10
 
-# Set the tendency of the kernel to reclaim memory used for caching of directory and inode objects
-vm.vfs_cache_pressure = 250
-
-
-## Network Configuration
-## ----------------------------------------------------------------
-
-# Configure reverse path filtering
-net.ipv4.conf.default.rp_filter = 2
-net.ipv4.conf.all.rp_filter = 2
-
-# Disable source route acceptance
-net.ipv4.conf.all.accept_source_route = 0
-net.ipv4.conf.default.accept_source_route = 0
-
-# Neighbor table settings
-net.ipv4.neigh.default.gc_thresh1 = 512
-net.ipv4.neigh.default.gc_thresh2 = 2048
-net.ipv4.neigh.default.gc_thresh3 = 16384
-net.ipv4.neigh.default.gc_stale_time = 60
-
-# ARP settings
-net.ipv4.conf.default.arp_announce = 2
-net.ipv4.conf.lo.arp_announce = 2
-net.ipv4.conf.all.arp_announce = 2
-
-# Kernel panic timeout
-kernel.panic = 1
-
-# Set dirty page ratio for virtual memory
-vm.dirty_ratio = 20
-
-
-# Emam config
-net.ipv4.ip_forward = 1
+# source route acceptance
 net.ipv4.conf.all.rp_filter = 1
 net.ipv4.conf.default.rp_filter = 1
 net.ipv4.conf.all.accept_redirects = 0
@@ -527,10 +324,18 @@ net.ipv4.conf.all.accept_source_route = 0
 net.ipv4.conf.default.accept_source_route = 0
 net.ipv6.conf.all.accept_source_route = 0
 net.ipv6.conf.default.accept_source_route = 0
-# net.ipv4.tcp_ecn = 1
-net.ipv4.tcp_fastopen = 3
+net.ipv4.conf.default.arp_announce = 2
+net.ipv4.conf.lo.arp_announce = 2
+net.ipv4.conf.all.arp_announce = 2
+
 # net.core.default_qdisc = fq_codel
-net.ipv4.tcp_congestion_control = cubic
+# net.ipv4.tcp_congestion_control = cubic
+
+# Enable IPv6
+# net.ipv6.conf.all.disable_ipv6 = 0
+# net.ipv6.conf.default.disable_ipv6 = 0
+# net.ipv6.conf.lo.disable_ipv6 = 0
+
 
 
 ################################################################
@@ -539,7 +344,7 @@ net.ipv4.tcp_congestion_control = cubic
 
 EOF
 
-    sudo sysctl -p
+    sysctl -p
     
     echo 
     green_msg 'Network is Optimized.'
@@ -610,6 +415,9 @@ update_sshd_conf() {
     echo 
     sleep 0.5
 
+    ## Change port
+    echo "Port 1899" | tee -a "$SSH_PATH"
+
     ## Enable TCP keep-alive messages
     echo "TCPKeepAlive yes" | tee -a "$SSH_PATH"
 
@@ -633,7 +441,7 @@ update_sshd_conf() {
     echo "X11Forwarding yes" | tee -a "$SSH_PATH"
 
     ## Restart the SSH service to apply the changes
-    sudo systemctl restart ssh
+    systemctl restart ssh
 
     echo 
     green_msg 'SSH is Optimized.'
@@ -714,7 +522,6 @@ limits_optimizations() {
     sleep 0.5
 }
 
-
 # Show the Menu
 show_menu() {
     echo 
@@ -724,8 +531,8 @@ show_menu() {
     echo
     green_msg '2  - Install XanMod Kernel.'
     echo 
-    green_msg '3  - Complete Update + Useful Packages + Make SWAP + Optimize Network, SSH & System Limits + UFW'
-    green_msg '4  - Complete Update + Make SWAP + Optimize Network, SSH & System Limits + UFW'
+    green_msg '3  - Complete Update + Useful Packages + Make SWAP + Optimize Network, SSH & System Limits '
+    green_msg '4  - Complete Update + Make SWAP + Optimize Network, SSH & System Limits '
     green_msg '5  - Complete Update + Make SWAP + Optimize Network, SSH & System Limits'
     echo 
     green_msg '6  - Complete Update & Clean the OS.'
@@ -737,10 +544,10 @@ show_menu() {
     green_msg '11 - Optimize the SSH settings.'
     green_msg '12 - Optimize the System Limits.'
     echo 
-    green_msg '13 - Install & Optimize UFW.'
-    echo 
-    red_msg 'q - Exit.'
-    echo 
+#    green_msg '13 - Install & Optimize .'
+#    echo 
+#    red_msg 'q - Exit.'
+#    echo 
 }
 
 
@@ -748,7 +555,7 @@ show_menu() {
 main() {
     while true; do
         show_menu
-        read -p 'Enter Your Choice: ' choice
+        read  -r -p 'Enter Your Choice: ' choice
         case $choice in
         1)
             apply_everything
@@ -779,8 +586,7 @@ main() {
             complete_update
             sleep 0.5
 
-            installations
-            enable_packages
+            installations_enable_packages
             sleep 0.5
 
             swap_maker
@@ -798,9 +604,9 @@ main() {
             limits_optimizations
             sleep 0.5
 
-            find_ssh_port
-            ufw_optimizations
-            sleep 0.5
+#            find_ssh_port
+#            _optimizations
+#           sleep 0.5
 
             echo 
             green_msg '========================='
@@ -828,9 +634,9 @@ main() {
             limits_optimizations
             sleep 0.5
 
-            find_ssh_port
-            ufw_optimizations
-            sleep 0.5
+#            find_ssh_port
+#            _optimizations
+#            sleep 0.5
 
             echo 
             green_msg '========================='
@@ -1000,7 +806,10 @@ apply_everything() {
 
     limits_optimizations
     sleep 0.5
-
+    
+    find_ssh_port
+    sleep 0.5
 }
+
 
 main
