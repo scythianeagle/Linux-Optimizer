@@ -305,7 +305,7 @@ net.ipv4.tcp_window_scaling = 1
 net.ipv4.tcp_adv_win_scale = -2
 
 # net.ipv4.tcp_ecn = 1
-net.ipv4.tcp_ecn_fallback = 1
+# net.ipv4.tcp_ecn_fallback = 1
 net.ipv4.tcp_syncookies = 1
 vm.swappiness = 10
 
@@ -329,7 +329,7 @@ net.ipv4.conf.lo.arp_announce = 2
 net.ipv4.conf.all.arp_announce = 2
 
 # net.core.default_qdisc = fq_codel
-# net.ipv4.tcp_congestion_control = bbr
+# net.ipv4.tcp_congestion_control = cubic
 
 # Enable IPv6
 # net.ipv6.conf.all.disable_ipv6 = 0
@@ -344,7 +344,7 @@ net.ipv4.conf.all.arp_announce = 2
 
 EOF
 
-     sysctl -p
+    sysctl -p
     
     echo 
     green_msg 'Network is Optimized.'
@@ -373,7 +373,7 @@ find_ssh_port() {
             echo 
             green_msg "SSH port is default 22."
             echo 
-            SSH_PORT=9981
+            SSH_PORT=1899
             sleep 0.5
         fi
     else
@@ -406,8 +406,7 @@ remove_old_ssh_conf() {
         -e '/GatewayPorts/d' \
         -e '/PermitTunnel/d' \
         -e '/X11Forwarding/d' "$SSH_PATH"
-        
-        
+
 }
 # Update SSH config
 update_sshd_conf() {
@@ -442,7 +441,7 @@ update_sshd_conf() {
     echo "X11Forwarding yes" | tee -a "$SSH_PATH"
 
     ## Restart the SSH service to apply the changes
-     systemctl restart ssh
+    systemctl restart ssh
 
     echo 
     green_msg 'SSH is Optimized.'
@@ -474,7 +473,8 @@ limits_optimizations() {
     sed -i '/ulimit -x/d' $PROF_PATH
     sed -i '/ulimit -s/d' $PROF_PATH
 
-        ## Add new ulimits
+
+    ## Add new ulimits
     ## The maximum size of core files created.
     echo "ulimit -c unlimited" | tee -a $PROF_PATH
 
@@ -763,7 +763,7 @@ main() {
 
             ask_reboot
             ;;
-    
+
         q)
             exit 0
             ;;
@@ -813,5 +813,3 @@ apply_everything() {
 
 
 main
-
-
