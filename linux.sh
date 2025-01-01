@@ -35,7 +35,7 @@ green_msg '================================================================='
 green_msg 'This script will automatically Optimize your Linux Server.'
 green_msg 'Tested on: Ubuntu 20+, Debian 11+, CentOS stream 8+, AlmaLinux 8+, Fedora 37+'
 green_msg 'Root access is required.' 
-green_msg 'Source is @ https://github.com/scythianeagle/linux-optimizer' 
+green_msg 'Source is @ https://github.com/hawshemi/linux-optimizer' 
 green_msg '================================================================='
 echo 
 
@@ -66,7 +66,7 @@ install_dependencies_debian_based() {
   sleep 0.5
   
   apt update -q
-  apt install -y wget curl sudo jq
+  apt install -yq wget curl sudo jq
 
   echo
   green_msg 'Dependencies Installed.'
@@ -93,32 +93,29 @@ install_dependencies_rhel_based() {
 
 
 # Fix Hosts file
-# fix_etc_hosts(){ 
-#   echo 
-#   yellow_msg "Fixing Hosts file."
-#   sleep 0.5
+fix_etc_hosts(){ 
+  echo 
+  yellow_msg "Fixing Hosts file."
+  sleep 0.5
 
-#   cp $HOST_PATH /etc/hosts.bak
-#   yellow_msg "Default hosts file saved. Directory: /etc/hosts.bak"
-# 
-#   if ! grep -q "$(hostname)""$HOST_PATH"; then
-#   if ! grep -q "$(hostname)""$HOST_PATH"; then
-#   if ! grep -q "$(hostname)""$HOST_PATH"; then
-#   if ! grep -q "$(hostname)""$HOST_PATH"; then
-#   if ! grep -q "$(hostname)""$HOST_PATH"; then
-#     echo "127.0.1.1 $(hostname)" | sudo tee -a $HOST_PATH > /dev/null
-#   if ! grep -q "$(hostname)""$HOST_PATH"; then
-#     green_msg "Hosts Fixed."
-#     echo 
-#     sleep 0.5
-#   else
-#     green_msg "Hosts OK. No changes made."
-#     echo 
-#   fi
-# }
+  cp $HOST_PATH /etc/hosts.bak
+  yellow_msg "Default hosts file saved. Directory: /etc/hosts.bak"
+  sleep 0.5
+
+  if ! grep -q $(hostname) $HOST_PATH; then
+    echo "127.0.1.1 $(hostname)" | sudo tee -a $HOST_PATH > /dev/null
+    green_msg "Hosts Fixed."
+    echo 
+    sleep 0.5
+  else
+    green_msg "Hosts OK. No changes made."
+    echo 
+    sleep 0.5
+  fi
+}
 
 
-# Fix DNS Temporarly
+# Fix DNS Temporarily
 fix_dns(){
     echo 
     yellow_msg "Fixing DNS Temporarily."
@@ -132,6 +129,7 @@ fix_dns(){
 
     echo "nameserver 8.8.8.8" >> $DNS_PATH
     echo "nameserver 1.0.0.1" >> $DNS_PATH
+    echo "nameserver 127.0.0.53" >> $DNS_PATH
 
     green_msg "DNS Fixed Temporarily."
     echo 
@@ -262,26 +260,27 @@ sleep 0.5
 case $OS in
 ubuntu)
     # Ubuntu
-    wget "https://raw.githubusercontent.com/scythianeagle/Linux-Optimizer/main/ubuntu.sh" -O ubuntu.sh && chmod +x ubuntu.sh && bash ubuntu.sh 
+    wget "https://raw.githubusercontent.com/scythianeagle/Linux-Optimizer/refs/heads/main/ubuntu.sh" -O ubuntu.sh && chmod +x ubuntu.sh && bash ubuntu.sh 
     ;;
 debian)
     # Debian
-    wget "https://raw.githubusercontent.com/scythianeagle/Linux-Optimizer/main/scripts/debian-optimizer" -q -O debian-optimizer.sh && chmod +x debian-optimizer.sh && bash debian-optimizer.sh 
+    wget "https://raw.githubusercontent.com/scythianeagle/Linux-Optimizer/refs/heads/main/scripts/debian-optimizer.sh" -q -O debian-optimizer.sh && chmod +x debian-optimizer.sh && bash debian-optimizer.sh 
     ;;
 centos)
     # CentOS
-    wget "https://raw.githubusercontent.com/scythianeagle/Linux-Optimizer/main/scripts/centos-optimizer.sh" -q -O centos-optimizer.sh && chmod +x centos-optimizer.sh && bash centos-optimizer.sh 
+    wget "https://raw.githubusercontent.com/scythianeagle/Linux-Optimizer/refs/heads/main/scripts/centos-optimizer.sh" -q -O centos-optimizer.sh && chmod +x centos-optimizer.sh && bash centos-optimizer.sh 
     ;;
 almalinux)
     # AlmaLinux
-    wget "https://raw.githubusercontent.com/scythianeagle/Linux-Optimizer/main/scripts/centos-optimizer.sh" -q -O almalinux-optimizer.sh && chmod +x almalinux-optimizer.sh && bash almalinux-optimizer.sh 
+    wget "https://raw.githubusercontent.com/scythianeagle/Linux-Optimizer/refs/heads/main/scripts/centos-optimizer.sh" -q -O almalinux-optimizer.sh && chmod +x almalinux-optimizer.sh && bash almalinux-optimizer.sh 
     ;;
 fedora)
     # Fedora
-    wget "https://raw.githubusercontent.com/scythianeagle/Linux-Optimizer/main/scripts/fedora-optimizer.sh" -q -O fedora-optimizer.sh && chmod +x fedora-optimizer.sh && bash fedora-optimizer.sh 
+    wget "https://raw.githubusercontent.com/scythianeagle/Linux-Optimizer/refs/heads/main/scripts/fedora-optimizer.sh" -q -O fedora-optimizer.sh && chmod +x fedora-optimizer.sh && bash fedora-optimizer.sh 
     ;;
 unknown)
     # Unknown
     exit 
     ;;
 esac
+
