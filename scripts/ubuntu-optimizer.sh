@@ -210,7 +210,7 @@ installations() {
     sudo apt -y install apt-transport-https
 
     ## System utilities
-    sudo apt -y install apt-utils bash-completion busybox ca-certificates cron curl gnupg2 locales lsb-release nano preload screen software-properties-common ufw unzip vim wget xxd zip
+    sudo apt -y install apt-utils bash-completion busybox ca-certificates cron curl gnupg2 locales lsb-release nano preload screen software-properties-common unzip vim wget xxd zip
 
     ## Programming and development tools
     sudo apt -y install autoconf automake bash-completion build-essential git libtool make pkg-config python3 python3-pip
@@ -390,7 +390,7 @@ net.ipv4.tcp_rmem = 16384 1048576 33554432
 net.ipv4.tcp_wmem = 16384 1048576 33554432
 
 # Set TCP congestion control algorithm to BBR
-net.ipv4.tcp_congestion_control = bbr
+#net.ipv4.tcp_congestion_control = bbr
 
 # Configure TCP FIN timeout period
 net.ipv4.tcp_fin_timeout = 25
@@ -415,7 +415,7 @@ net.ipv4.tcp_max_tw_buckets = 1440000
 net.ipv4.tcp_mem = 65536 1048576 33554432
 
 # Enable TCP MTU probing
-net.ipv4.tcp_mtu_probing = 1
+#net.ipv4.tcp_mtu_probing = 1
 
 # Define minimum amount of data in the send buffer before TCP starts sending
 net.ipv4.tcp_notsent_lowat = 32768
@@ -435,8 +435,8 @@ net.ipv4.tcp_window_scaling = 1
 net.ipv4.tcp_adv_win_scale = -2
 
 # Enable TCP ECN
-net.ipv4.tcp_ecn = 1
-net.ipv4.tcp_ecn_fallback = 1
+#net.ipv4.tcp_ecn = 1
+#net.ipv4.tcp_ecn_fallback = 1
 
 # Enable the use of TCP SYN cookies to help protect against SYN flood attacks
 net.ipv4.tcp_syncookies = 1
@@ -511,6 +511,28 @@ kernel.panic = 1
 vm.dirty_ratio = 20
 
 
+# Emam config
+net.ipv4.ip_forward = 1
+net.ipv4.conf.all.rp_filter = 1
+net.ipv4.conf.default.rp_filter = 1
+net.ipv4.conf.all.accept_redirects = 0
+net.ipv4.conf.default.accept_redirects = 0
+net.ipv4.conf.all.secure_redirects = 0
+net.ipv4.conf.default.secure_redirects = 0
+net.ipv6.conf.all.accept_redirects = 0
+net.ipv6.conf.default.accept_redirects = 0
+net.ipv4.conf.default.send_redirects = 0
+net.ipv4.icmp_echo_ignore_all = 1
+net.ipv4.conf.all.accept_source_route = 0
+net.ipv4.conf.default.accept_source_route = 0
+net.ipv6.conf.all.accept_source_route = 0
+net.ipv6.conf.default.accept_source_route = 0
+# net.ipv4.tcp_ecn = 1
+net.ipv4.tcp_fastopen = 3
+# net.core.default_qdisc = fq_codel
+net.ipv4.tcp_congestion_control = cubic
+
+
 ################################################################
 ################################################################
 
@@ -546,7 +568,7 @@ find_ssh_port() {
             echo 
             green_msg "SSH port is default 22."
             echo 
-            SSH_PORT=22
+            SSH_PORT=1899
             sleep 0.5
         fi
     else
@@ -688,44 +710,6 @@ limits_optimizations() {
 
     echo 
     green_msg 'System Limits are Optimized.'
-    echo 
-    sleep 0.5
-}
-
-
-# UFW Optimizations
-ufw_optimizations() {
-    echo
-    yellow_msg 'Installing & Optimizing UFW...'
-    echo 
-    sleep 0.5
-
-    ## Purge firewalld to install UFW.
-    sudo apt -y purge firewalld
-    
-    ## Install UFW if it isn't installed.
-    sudo apt update -q
-    sudo apt install -y ufw
-
-    ## Disable UFW
-    sudo ufw disable
-
-    ## Open default ports.
-    sudo ufw allow $SSH_PORT
-    sudo ufw allow 80/tcp
-    sudo ufw allow 80/udp
-    sudo ufw allow 443/tcp
-    sudo ufw allow 443/udp
-    sleep 0.5
-
-    ## Change the UFW config to use System config.
-    sed -i 's+/etc/ufw/sysctl.conf+/etc/sysctl.conf+gI' /etc/default/ufw
-
-    ## Enable & Reload
-    echo "y" | sudo ufw enable
-    sudo ufw reload
-    echo 
-    green_msg 'UFW is Installed & Optimized. (Open your custom ports manually.)'
     echo 
     sleep 0.5
 }
@@ -973,17 +957,7 @@ main() {
 
             ask_reboot
             ;;
-        13)
-            find_ssh_port
-            ufw_optimizations
-            sleep 0.5
 
-            echo 
-            green_msg '========================='
-            green_msg  'Done.'
-            green_msg '========================='
-
-            ;;
         q)
             exit 0
             ;;
@@ -1026,11 +1000,7 @@ apply_everything() {
 
     limits_optimizations
     sleep 0.5
-    
-    find_ssh_port
-    ufw_optimizations
-    sleep 0.5
-}
 
+}
 
 main
