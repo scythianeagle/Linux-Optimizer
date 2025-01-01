@@ -96,6 +96,23 @@ complete_update() {
 }
 
 
+# Disable Terminal Ads
+disable_terminal_ads() {
+    echo 
+    yellow_msg 'Disabling Terminal Ads...'
+    echo 
+    sleep 0.5
+
+    sed -i 's/ENABLED=1/ENABLED=0/g' /etc/default/motd-news
+    pro config set apt_news=false
+
+    echo 
+    green_msg 'Terminal Ads Disabled.'
+    echo 
+    sleep 0.5
+}
+
+
 # Install XanMod Kernel
 install_xanmod() {
     echo 
@@ -193,7 +210,7 @@ installations() {
     sudo apt -q -y install apt-transport-https
 
     ## System utilities
-    sudo apt -q -y install apt-utils bash-completion busybox ca-certificates cron curl gnupg2 locales lsb-release nano preload screen software-properties-common ufw unzip vim wget xxd zip
+    sudo apt -q -y install apt-utils bash-completion busybox ca-certificates cron curl gnupg2 locales lsb-release nano preload screen software-properties-commonunzip wget xxd zip
 
     ## Programming and development tools
     sudo apt -q -y install autoconf automake bash-completion build-essential git libtool make pkg-config python3 python3-pip
@@ -373,7 +390,7 @@ net.ipv4.tcp_rmem = 16384 1048576 33554432
 net.ipv4.tcp_wmem = 16384 1048576 33554432
 
 # Set TCP congestion control algorithm to BBR
-net.ipv4.tcp_congestion_control = bbr
+#net.ipv4.tcp_congestion_control = bbr
 
 # Configure TCP FIN timeout period
 net.ipv4.tcp_fin_timeout = 25
@@ -398,7 +415,7 @@ net.ipv4.tcp_max_tw_buckets = 1440000
 net.ipv4.tcp_mem = 65536 1048576 33554432
 
 # Enable TCP MTU probing
-net.ipv4.tcp_mtu_probing = 1
+#net.ipv4.tcp_mtu_probing = 1
 
 # Define minimum amount of data in the send buffer before TCP starts sending
 net.ipv4.tcp_notsent_lowat = 32768
@@ -418,32 +435,11 @@ net.ipv4.tcp_window_scaling = 1
 net.ipv4.tcp_adv_win_scale = -2
 
 # Enable TCP ECN
-net.ipv4.tcp_ecn = 1
-net.ipv4.tcp_ecn_fallback = 1
+#net.ipv4.tcp_ecn = 1
+#net.ipv4.tcp_ecn_fallback = 1
 
 # Enable the use of TCP SYN cookies to help protect against SYN flood attacks
 net.ipv4.tcp_syncookies = 1
-
-# Emam config
-net.ipv4.ip_forward = 1
-net.ipv4.conf.all.rp_filter = 1
-net.ipv4.conf.default.rp_filter = 1
-net.ipv4.conf.all.accept_redirects = 0
-net.ipv4.conf.default.accept_redirects = 0
-net.ipv4.conf.all.secure_redirects = 0
-net.ipv4.conf.default.secure_redirects = 0
-net.ipv6.conf.all.accept_redirects = 0
-net.ipv6.conf.default.accept_redirects = 0
-net.ipv4.conf.default.send_redirects = 0
-net.ipv4.icmp_echo_ignore_all = 1
-net.ipv4.conf.all.accept_source_route = 0
-net.ipv4.conf.default.accept_source_route = 0
-net.ipv6.conf.all.accept_source_route = 0
-net.ipv6.conf.default.accept_source_route = 0
-net.ipv4.tcp_ecn = 1
-net.ipv4.tcp_fastopen = 3
-# net.core.default_qdisc = fq_codel
-net.ipv4.tcp_congestion_control = hybla
 
 
 ## UDP settings
@@ -490,29 +486,51 @@ vm.vfs_cache_pressure = 250
 ## ----------------------------------------------------------------
 
 # Configure reverse path filtering
-# net.ipv4.conf.default.rp_filter = 2
-# net.ipv4.conf.all.rp_filter = 2
+net.ipv4.conf.default.rp_filter = 2
+net.ipv4.conf.all.rp_filter = 2
 
 # Disable source route acceptance
-# net.ipv4.conf.all.accept_source_route = 0
-# net.ipv4.conf.default.accept_source_route = 0
+net.ipv4.conf.all.accept_source_route = 0
+net.ipv4.conf.default.accept_source_route = 0
 
 # Neighbor table settings
-# net.ipv4.neigh.default.gc_thresh1 = 512
-# net.ipv4.neigh.default.gc_thresh2 = 2048
-# net.ipv4.neigh.default.gc_thresh3 = 16384
-# net.ipv4.neigh.default.gc_stale_time = 60
+net.ipv4.neigh.default.gc_thresh1 = 512
+net.ipv4.neigh.default.gc_thresh2 = 2048
+net.ipv4.neigh.default.gc_thresh3 = 16384
+net.ipv4.neigh.default.gc_stale_time = 60
 
 # ARP settings
-# net.ipv4.conf.default.arp_announce = 2
-# net.ipv4.conf.lo.arp_announce = 2
-# net.ipv4.conf.all.arp_announce = 2
+net.ipv4.conf.default.arp_announce = 2
+net.ipv4.conf.lo.arp_announce = 2
+net.ipv4.conf.all.arp_announce = 2
 
 # Kernel panic timeout
 kernel.panic = 1
 
 # Set dirty page ratio for virtual memory
 vm.dirty_ratio = 20
+
+
+# Emam config
+net.ipv4.ip_forward = 1
+net.ipv4.conf.all.rp_filter = 1
+net.ipv4.conf.default.rp_filter = 1
+net.ipv4.conf.all.accept_redirects = 0
+net.ipv4.conf.default.accept_redirects = 0
+net.ipv4.conf.all.secure_redirects = 0
+net.ipv4.conf.default.secure_redirects = 0
+net.ipv6.conf.all.accept_redirects = 0
+net.ipv6.conf.default.accept_redirects = 0
+net.ipv4.conf.default.send_redirects = 0
+net.ipv4.icmp_echo_ignore_all = 1
+net.ipv4.conf.all.accept_source_route = 0
+net.ipv4.conf.default.accept_source_route = 0
+net.ipv6.conf.all.accept_source_route = 0
+net.ipv6.conf.default.accept_source_route = 0
+# net.ipv4.tcp_ecn = 1
+net.ipv4.tcp_fastopen = 3
+# net.core.default_qdisc = fq_codel
+net.ipv4.tcp_congestion_control = cubic
 
 
 ################################################################
@@ -550,7 +568,7 @@ find_ssh_port() {
             echo 
             green_msg "SSH port is default 22."
             echo 
-            SSH_PORT=9981
+            SSH_PORT=1899
             sleep 0.5
         fi
     else
@@ -585,8 +603,6 @@ remove_old_ssh_conf() {
         -e '/X11Forwarding/d' "$SSH_PATH"
 
 }
-
-
 # Update SSH config
 update_sshd_conf() {
     echo 
@@ -960,6 +976,9 @@ apply_everything() {
     complete_update
     sleep 0.5
 
+    disable_terminal_ads
+    sleep 0.5
+
     install_xanmod
     sleep 0.5 
 
@@ -980,10 +999,6 @@ apply_everything() {
     sleep 0.5
 
     limits_optimizations
-    sleep 0.5
-    
-    find_ssh_port
-    ufw_optimizations
     sleep 0.5
 }
 
