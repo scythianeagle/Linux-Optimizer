@@ -294,8 +294,8 @@ cat <<EOF >> "$SYS_PATH"
 
 
 net.ipv4.ip_forward=1
-net.ipv4.tcp_congestion_control=hybla
-net.core.default_qdisc=fq_codel
+net.ipv4.tcp_congestion_control=cubic
+#net.core.default_qdisc=fq_codel
 net.core.optmem_max=65535
 net.ipv4.ip_no_pmtu_disc=1
 net.ipv4.tcp_ecn=0
@@ -359,8 +359,6 @@ net.ipv6.conf.all.disable_ipv6=1
 net.ipv6.conf.default.disable_ipv6=1
 net.ipv6.conf.lo.disable_ipv6=1
 
-sysctl -p
-sysctl --system
 
 ################################################################
 ################################################################
