@@ -291,51 +291,12 @@ cat <<EOF >> "$SYS_PATH"
 # /etc/sysctl.conf
 # These parameters in this file will be added/updated to the sysctl.conf file.
 # Read More: https://github.com/hawshemi/Linux-Optimizer/blob/main/files/sysctl.conf
-
-
 net.ipv4.ip_forward=1
 net.ipv4.tcp_congestion_control=cubic
-#net.core.default_qdisc=fq_codel
-net.core.optmem_max=65535
-net.ipv4.ip_no_pmtu_disc=1
-net.ipv4.tcp_ecn=0
-net.ipv4.tcp_frto=2
-net.ipv4.tcp_keepalive_intvl=30
-net.ipv4.tcp_keepalive_probes=3
-net.ipv4.tcp_keepalive_time=300
-net.ipv4.tcp_low_latency=1
-net.ipv4.tcp_mtu_probing=1
-net.ipv4.tcp_no_metrics_save=1
-net.ipv4.tcp_window_scaling=1
-net.ipv4.tcp_sack=1
-net.ipv4.tcp_timestamps=1
-net.ipv4.tcp_fastopen=3
-net.ipv4.tcp_reordering=3
-net.ipv4.tcp_early_retrans=3
-net.ipv4.tcp_abort_on_overflow=1
-net.core.rmem_default=4194304
-net.ipv4.tcp_max_orphans=3276800
-net.ipv4.tcp_autocorking=1
-fs.file-max=1000000
-fs.inotify.max_user_instances=8192
-net.ipv4.tcp_tw_reuse=1
-net.ipv4.tcp_rmem=16384 262144 8388608
-net.ipv4.tcp_wmem=32768 524288 16777216
-net.core.somaxconn=8192
-net.core.rmem_max=16777216
-net.core.wmem_max=16777216
-net.core.wmem_default=2097152
-net.ipv4.tcp_max_tw_buckets=5000
-net.ipv4.tcp_max_syn_backlog=10240
-net.core.netdev_max_backlog=10240
+fs.file-max=67108864
+# net.core.default_qdisc=fq_codel
+net.ipv4.tcp_mtu_probing=0
 net.ipv4.tcp_slow_start_after_idle=0
-net.ipv4.tcp_notsent_lowat=16384
-net.ipv4.ip_forward=1
-net.ipv4.tcp_fin_timeout=25
-net.ipv4.tcp_mem=65536 131072 262144
-net.ipv4.tcp_retries2=8
-net.ipv4.udp_mem=65536 131072 262144
-net.unix.max_dgram_qlen=50
 net.ipv4.conf.all.rp_filter=1
 net.ipv4.conf.default.rp_filter=1
 net.ipv4.conf.all.accept_redirects=0
@@ -350,11 +311,6 @@ net.ipv4.conf.all.accept_source_route=0
 net.ipv4.conf.default.accept_source_route=0
 net.ipv6.conf.all.accept_source_route=0
 net.ipv6.conf.default.accept_source_route=0
-net.ipv4.conf.default.arp_announce=2
-net.ipv4.conf.lo.arp_announce=2
-net.ipv4.conf.all.arp_announce=2
-
-# Disable IPv6
 net.ipv6.conf.all.disable_ipv6=1
 net.ipv6.conf.default.disable_ipv6=1
 net.ipv6.conf.lo.disable_ipv6=1
