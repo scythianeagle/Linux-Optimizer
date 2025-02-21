@@ -415,7 +415,7 @@ net.ipv4.tcp_max_tw_buckets = 1440000
 net.ipv4.tcp_mem = 65536 1048576 33554432
 
 # Enable TCP MTU probing
-net.ipv4.tcp_mtu_probing = 0
+#net.ipv4.tcp_mtu_probing = 0
 
 # Define minimum amount of data in the send buffer before TCP starts sending
 net.ipv4.tcp_notsent_lowat = 32768
@@ -428,7 +428,7 @@ net.ipv4.tcp_sack = 1
 net.ipv4.tcp_dsack = 1
 
 # Disable TCP slow start after idle
-net.ipv4.tcp_slow_start_after_idle = 0
+# net.ipv4.tcp_slow_start_after_idle = 0
 
 # Enable TCP window scaling
 net.ipv4.tcp_window_scaling = 1
