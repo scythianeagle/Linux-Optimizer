@@ -25,7 +25,7 @@ red_msg() {
 # Declare Paths & Settings.
 SYS_PATH="/etc/sysctl.conf"
 PROF_PATH="/etc/profile"
-SSH_PORT=""
+SSH_PORT="1899"
 SSH_PATH="/etc/ssh/sshd_config"
 SWAP_PATH="/swapfile"
 SWAP_SIZE=1G
@@ -415,7 +415,7 @@ net.ipv4.tcp_max_tw_buckets = 1440000
 net.ipv4.tcp_mem = 65536 1048576 33554432
 
 # Enable TCP MTU probing
-#net.ipv4.tcp_mtu_probing = 0
+net.ipv4.tcp_mtu_probing = 0
 
 # Define minimum amount of data in the send buffer before TCP starts sending
 net.ipv4.tcp_notsent_lowat = 32768
@@ -428,7 +428,7 @@ net.ipv4.tcp_sack = 1
 net.ipv4.tcp_dsack = 1
 
 # Disable TCP slow start after idle
-# net.ipv4.tcp_slow_start_after_idle = 0
+net.ipv4.tcp_slow_start_after_idle = 0
 
 # Enable TCP window scaling
 net.ipv4.tcp_window_scaling = 1
@@ -727,4 +727,327 @@ limits_optimizations() {
     ## Disable UFW
      #sudo ufw disable
 
-    ## Open 
+    ## Open default ports.
+    #sudo ufw allow $SSH_PORT
+    #sudo ufw allow 80/tcp
+    #sudo ufw allow 80/udp
+    #sudo ufw allow 443/tcp
+    #sudo ufw allow 443/udp
+    #sleep 0.5
+
+    ## Change the UFW config to use System config.
+    #sed -i 's+/etc/ufw/sysctl.conf+/etc/sysctl.conf+gI' /etc/default/ufw
+
+    ## Enable & Reload
+    #echo "y" | sudo ufw enable
+    #sudo ufw reload
+    #echo 
+    #green_msg 'UFW is Installed & Optimized. (Open your custom ports manually.)'
+    #echo 
+    #sleep 0.5
+#}
+
+
+# Show the Menu
+show_menu() {
+    echo 
+    yellow_msg 'Choose One Option: '
+    echo 
+    green_msg '1  - Apply Everything + XanMod Kernel. (RECOMMENDED)'
+    echo
+    green_msg '2  - Install XanMod Kernel.'
+    echo 
+    green_msg '3  - Complete Update + Useful Packages + Make SWAP + Optimize Network, SSH & System Limits'
+    green_msg '4  - Complete Update + Make SWAP + Optimize Network, SSH & System Limits'
+    green_msg '5  - Complete Update + Make SWAP + Optimize Network, SSH & System Limits'
+    echo 
+    green_msg '6  - Complete Update & Clean the OS.'
+    green_msg '7  - Install Useful Packages.'
+    green_msg '8  - Make SWAP (1Gb).'
+    green_msg '9  - Optimize the Network, SSH & System Limits.'
+    echo 
+    green_msg '10 - Optimize the Network settings.'
+    green_msg '11 - Optimize the SSH settings.'
+    green_msg '12 - Optimize the System Limits.'
+    echo 
+    green_msg '13 - Install & Optimize UFW.'
+    echo 
+    red_msg 'q - Exit.'
+    echo 
+}
+
+
+# Choosing Program
+main() {
+    while true; do
+        show_menu
+        read -p 'Enter Your Choice: ' choice
+        case $choice in
+        1)
+            apply_everything
+
+            echo 
+            green_msg '========================='
+            green_msg  'Done.'
+            green_msg '========================='
+
+            ask_reboot
+            ;;
+
+        2)
+            complete_update
+            sleep 0.5
+
+            install_xanmod
+            sleep 0.5
+
+            echo 
+            green_msg '========================='
+            green_msg  'Done.'
+            green_msg '========================='
+
+            ask_reboot
+            ;;
+        3)
+            complete_update
+            sleep 0.5
+
+            installations
+            enable_packages
+            sleep 0.5
+
+            swap_maker
+            sleep 0.5
+
+            sysctl_optimizations
+            sleep 0.5
+
+            remove_old_ssh_conf
+            sleep 0.5
+
+            update_sshd_conf
+            sleep 0.5
+
+            limits_optimizations
+            sleep 0.5
+
+            find_ssh_port
+            ufw_optimizations
+            sleep 0.5
+
+            echo 
+            green_msg '========================='
+            green_msg  'Done.'
+            green_msg '========================='
+
+            ask_reboot
+            ;;
+        4)
+            complete_update
+            sleep 0.5
+
+            swap_maker
+            sleep 0.5
+
+            sysctl_optimizations
+            sleep 0.5
+
+            remove_old_ssh_conf
+            sleep 0.5
+
+            update_sshd_conf
+            sleep 0.5
+
+            limits_optimizations
+            sleep 0.5
+
+            find_ssh_port
+            #ufw_optimizations
+            sleep 0.5
+
+            echo 
+            green_msg '========================='
+            green_msg  'Done.'
+            green_msg '========================='
+
+            ask_reboot
+            ;;
+        5)
+            complete_update
+            sleep 0.5
+
+            swap_maker
+            sleep 0.5
+
+            sysctl_optimizations
+            sleep 0.5
+
+            remove_old_ssh_conf
+            sleep 0.5
+
+            update_sshd_conf
+            sleep 0.5
+
+            limits_optimizations
+            sleep 0.5
+
+            echo 
+            green_msg '========================='
+            green_msg  'Done.'
+            green_msg '========================='
+
+            ask_reboot
+            ;;
+        6)
+            complete_update
+            sleep 0.5
+
+            echo 
+            green_msg '========================='
+            green_msg  'Done.'
+            green_msg '========================='
+
+            ask_reboot
+            ;;
+            
+        7)
+            complete_update
+            sleep 0.5
+
+            installations
+            enable_packages
+            sleep 0.5
+
+            echo 
+            green_msg '========================='
+            green_msg  'Done.'
+            green_msg '========================='
+
+            ask_reboot
+            ;;
+        8)
+            swap_maker
+            sleep 0.5
+
+            echo 
+            green_msg '========================='
+            green_msg  'Done.'
+            green_msg '========================='
+
+            ask_reboot
+            ;;
+        9)
+            sysctl_optimizations
+            sleep 0.5
+
+            remove_old_ssh_conf
+            sleep 0.5
+
+            update_sshd_conf
+            sleep 0.5
+
+            limits_optimizations
+            sleep 0.5
+
+            echo 
+            green_msg '========================='
+            green_msg  'Done.'
+            green_msg '========================='
+
+            ask_reboot
+            ;;
+        10)
+            sysctl_optimizations
+            sleep 0.5
+
+            echo 
+            green_msg '========================='
+            green_msg  'Done.'
+            green_msg '========================='
+
+            ;;
+        11)
+            remove_old_ssh_conf
+            sleep 0.5
+
+            update_sshd_conf
+            sleep 0.5
+
+            echo 
+            green_msg '========================='
+            green_msg  'Done.'
+            green_msg '========================='
+
+            ;;
+        12)
+            limits_optimizations
+            sleep 0.5
+
+            echo 
+            green_msg '========================='
+            green_msg  'Done.'
+            green_msg '========================='
+
+            ask_reboot
+            ;;
+        13)
+            find_ssh_port
+            #ufw_optimizations
+            sleep 0.5
+
+            echo 
+            green_msg '========================='
+            green_msg  'Done.'
+            green_msg '========================='
+
+            ;;
+        q)
+            exit 0
+            ;;
+
+        *)
+            red_msg 'Wrong input!'
+            ;;
+        esac
+    done
+}
+
+
+# Apply Everything
+apply_everything() {
+
+    complete_update
+    sleep 0.5
+
+    disable_terminal_ads
+    sleep 0.5
+
+    install_xanmod
+    sleep 0.5 
+
+    installations
+    enable_packages
+    sleep 0.5
+
+    swap_maker
+    sleep 0.5
+
+    sysctl_optimizations
+    sleep 0.5
+
+    remove_old_ssh_conf
+    sleep 0.5
+
+    update_sshd_conf
+    sleep 0.5
+
+    limits_optimizations
+    sleep 0.5
+    
+    find_ssh_port
+    #_optimizations
+    sleep 0.5
+}
+
+
+main
