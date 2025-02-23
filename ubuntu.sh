@@ -210,7 +210,7 @@ installations() {
     sudo apt -y install apt-transport-https
 
     ## System utilities
-    sudo apt -y install apt-utils bash-completion busybox ca-certificates cron curl gnupg2 locales lsb-release nano preload screen software-properties-common unzip vim wget xxd zip
+    sudo apt -y install apt-utils bash-completion busybox ca-certificates cron curl gnupg2 locales lsb-release nano preload screen software-properties-common unzip wget xxd zip
 
     ## Programming and development tools
     sudo apt -y install autoconf automake bash-completion build-essential git libtool make pkg-config python3 python3-pip
@@ -356,7 +356,7 @@ fs.file-max = 67108864
 ## ----------------------------------------------------------------
 
 # Specify default queuing discipline for network devices
-net.core.default_qdisc = fq
+# net.core.default_qdisc = fq
 
 # Configure maximum network device backlog
 net.core.netdev_max_backlog = 32768
@@ -389,39 +389,39 @@ net.ipv4.tcp_rmem = 16384 1048576 33554432
 # Specify socket send buffer sizes
 net.ipv4.tcp_wmem = 16384 1048576 33554432
 
-# Set TCP congestion control algorithm to BBR
-net.ipv4.tcp_congestion_control = bbr
+# Set TCP congestion control algorithm to cubic
+net.ipv4.tcp_congestion_control = cubic
 
 # Configure TCP FIN timeout period
-net.ipv4.tcp_fin_timeout = 25
+# net.ipv4.tcp_fin_timeout = 25
 
 # Set keepalive time (seconds)
-net.ipv4.tcp_keepalive_time = 1200
+# net.ipv4.tcp_keepalive_time = 1200
 
 # Configure keepalive probes count and interval
-net.ipv4.tcp_keepalive_probes = 7
-net.ipv4.tcp_keepalive_intvl = 30
+# net.ipv4.tcp_keepalive_probes = 7
+# net.ipv4.tcp_keepalive_intvl = 30
 
 # Define maximum orphaned TCP sockets
-net.ipv4.tcp_max_orphans = 819200
+# net.ipv4.tcp_max_orphans = 819200
 
 # Set maximum TCP SYN backlog
-net.ipv4.tcp_max_syn_backlog = 20480
+# net.ipv4.tcp_max_syn_backlog = 20480
 
 # Configure maximum TCP Time Wait buckets
-net.ipv4.tcp_max_tw_buckets = 1440000
+# net.ipv4.tcp_max_tw_buckets = 1440000
 
 # Define TCP memory limits
 net.ipv4.tcp_mem = 65536 1048576 33554432
 
 # Enable TCP MTU probing
-net.ipv4.tcp_mtu_probing = 0
+# net.ipv4.tcp_mtu_probing = 0
 
 # Define minimum amount of data in the send buffer before TCP starts sending
-net.ipv4.tcp_notsent_lowat = 32768
+# net.ipv4.tcp_notsent_lowat = 32768
 
 # Specify retries for TCP socket to establish connection
-net.ipv4.tcp_retries2 = 8
+# net.ipv4.tcp_retries2 = 8
 
 # Enable TCP SACK and DSACK
 net.ipv4.tcp_sack = 1
@@ -431,12 +431,12 @@ net.ipv4.tcp_dsack = 1
 net.ipv4.tcp_slow_start_after_idle = 0
 
 # Enable TCP window scaling
-net.ipv4.tcp_window_scaling = 1
-net.ipv4.tcp_adv_win_scale = -2
+# net.ipv4.tcp_window_scaling = 1
+# net.ipv4.tcp_adv_win_scale = -2
 
 # Enable TCP ECN
-net.ipv4.tcp_ecn = 1
-net.ipv4.tcp_ecn_fallback = 1
+net.ipv4.tcp_ecn = 0
+# net.ipv4.tcp_ecn_fallback = 1
 
 # Enable the use of TCP SYN cookies to help protect against SYN flood attacks
 net.ipv4.tcp_syncookies = 1
@@ -466,14 +466,14 @@ net.ipv4.udp_mem = 65536 1048576 33554432
 ## ----------------------------------------------------------------
 
 # Set maximum queue length of UNIX domain sockets
-net.unix.max_dgram_qlen = 256
+# net.unix.max_dgram_qlen = 256
 
 
 ## Virtual memory (VM) settings
 ## ----------------------------------------------------------------
 
 # Specify minimum free Kbytes at which VM pressure happens
-vm.min_free_kbytes = 65536
+# vm.min_free_kbytes = 65536
 
 # Define how aggressively swap memory pages are used
 vm.swappiness = 10
@@ -486,29 +486,29 @@ vm.swappiness = 10
 ## ----------------------------------------------------------------
 
 # Configure reverse path filtering
-net.ipv4.conf.default.rp_filter = 2
-net.ipv4.conf.all.rp_filter = 2
+# net.ipv4.conf.default.rp_filter = 2
+# net.ipv4.conf.all.rp_filter = 2
 
 # Disable source route acceptance
 net.ipv4.conf.all.accept_source_route = 0
 net.ipv4.conf.default.accept_source_route = 0
 
 # Neighbor table settings
-net.ipv4.neigh.default.gc_thresh1 = 512
-net.ipv4.neigh.default.gc_thresh2 = 2048
-net.ipv4.neigh.default.gc_thresh3 = 16384
-net.ipv4.neigh.default.gc_stale_time = 60
+# net.ipv4.neigh.default.gc_thresh1 = 512
+# net.ipv4.neigh.default.gc_thresh2 = 2048
+# net.ipv4.neigh.default.gc_thresh3 = 16384
+# net.ipv4.neigh.default.gc_stale_time = 60
 
 # ARP settings
-net.ipv4.conf.default.arp_announce = 2
-net.ipv4.conf.lo.arp_announce = 2
-net.ipv4.conf.all.arp_announce = 2
+# net.ipv4.conf.default.arp_announce = 2
+# net.ipv4.conf.lo.arp_announce = 2
+# net.ipv4.conf.all.arp_announce = 2
 
 # Kernel panic timeout
-kernel.panic = 1
+# kernel.panic = 1
 
 # Set dirty page ratio for virtual memory
-vm.dirty_ratio = 20
+# vm.dirty_ratio = 20
 
 # Emam config
 net.ipv4.ip_forward = 1
@@ -528,7 +528,6 @@ net.ipv6.conf.all.accept_source_route = 0
 net.ipv6.conf.default.accept_source_route = 0
 net.ipv6.conf.all.accept_ra = 0
 net.ipv6.conf.default.accept_ra = 0
-net.ipv4.tcp_mtu_probing=0
 net.ipv4.tcp_slow_start_after_idle=0
 
 ################################################################
@@ -553,25 +552,25 @@ find_ssh_port() {
     echo 
     
     ## Check if the SSH configuration file exists
-    if [ -e "$SSH_PATH" ]; then
+#     if [ -e "$SSH_PATH" ]; then
         ## Use grep to search for the 'Port' directive in the SSH configuration file
-        SSH_PORT=$(grep -oP '^Port\s+\K\d+' "$SSH_PATH" 2>/dev/null)
+#         SSH_PORT=$(grep -oP '^Port\s+\K\d+' "$SSH_PATH" 2>/dev/null)
 
-        if [ -n "$SSH_PORT" ]; then
+#         if [ -n "$SSH_PORT" ]; then
             echo 
-            green_msg "SSH port found: $SSH_PORT"
-            echo 
-            sleep 0.5
-        else
+#             green_msg "SSH port found: $SSH_PORT"
+#             echo 
+#             sleep 0.5
+#         else
             echo 
             green_msg "SSH port is default 22."
             echo 
             SSH_PORT=1899
             sleep 0.5
-        fi
-    else
-        red_msg "SSH configuration file not found at $SSH_PATH"
-    fi
+#         fi
+#     else
+#         red_msg "SSH configuration file not found at $SSH_PATH"
+#     fi
 }
 
 
