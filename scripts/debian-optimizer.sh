@@ -334,46 +334,46 @@ net.ipv4.tcp_rmem = 16384 1048576 33554432
 # Specify socket send buffer sizes
 net.ipv4.tcp_wmem = 16384 1048576 33554432
 
-# Set TCP congestion control algorithm to BBR
-#net.ipv4.tcp_congestion_control = bbr
+# Set TCP congestion control algorithm to cubic
+net.ipv4.tcp_congestion_control = cubic
 
 # Configure TCP FIN timeout period
-net.ipv4.tcp_fin_timeout = 25
+# net.ipv4.tcp_fin_timeout = 25
 
 # Set keepalive time (seconds)
-net.ipv4.tcp_keepalive_time = 1200
+# net.ipv4.tcp_keepalive_time = 1200
 
 # Configure keepalive probes count and interval
-net.ipv4.tcp_keepalive_probes = 7
-net.ipv4.tcp_keepalive_intvl = 30
+# net.ipv4.tcp_keepalive_probes = 7
+# net.ipv4.tcp_keepalive_intvl = 30
 
 # Define maximum orphaned TCP sockets
-net.ipv4.tcp_max_orphans = 819200
+# net.ipv4.tcp_max_orphans = 819200
 
 # Set maximum TCP SYN backlog
-net.ipv4.tcp_max_syn_backlog = 20480
+# net.ipv4.tcp_max_syn_backlog = 20480
 
 # Configure maximum TCP Time Wait buckets
-net.ipv4.tcp_max_tw_buckets = 1440000
+# net.ipv4.tcp_max_tw_buckets = 1440000
 
 # Define TCP memory limits
-net.ipv4.tcp_mem = 65536 1048576 33554432
+# net.ipv4.tcp_mem = 65536 1048576 33554432
 
 # Enable TCP MTU probing
 #net.ipv4.tcp_mtu_probing = 1
 
 # Define minimum amount of data in the send buffer before TCP starts sending
-net.ipv4.tcp_notsent_lowat = 32768
+# net.ipv4.tcp_notsent_lowat = 32768
 
 # Specify retries for TCP socket to establish connection
-net.ipv4.tcp_retries2 = 8
+# net.ipv4.tcp_retries2 = 8
 
 # Enable TCP SACK and DSACK
 net.ipv4.tcp_sack = 1
 net.ipv4.tcp_dsack = 1
 net.ipv4.tcp_slow_start_after_idle = 0
-net.ipv4.tcp_window_scaling = 1
-net.ipv4.tcp_adv_win_scale = -2
+# net.ipv4.tcp_window_scaling = 1
+# net.ipv4.tcp_adv_win_scale = -2
 
 # net.ipv4.tcp_ecn = 1
 # net.ipv4.tcp_ecn_fallback = 1
