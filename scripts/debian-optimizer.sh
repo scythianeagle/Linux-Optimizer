@@ -404,46 +404,46 @@ net.ipv6.conf.lo.disable_ipv6 = 0
 ## ----------------------------------------------------------------
 
 # Set maximum queue length of UNIX domain sockets
-net.unix.max_dgram_qlen = 256
+# net.unix.max_dgram_qlen = 256
 
 
 ## Virtual memory (VM) settings
 ## ----------------------------------------------------------------
 
 # Specify minimum free Kbytes at which VM pressure happens
-vm.min_free_kbytes = 65536
+# vm.min_free_kbytes = 65536
 
 # Define how aggressively swap memory pages are used
 vm.swappiness = 10
 
 # Set the tendency of the kernel to reclaim memory used for caching of directory and inode objects
-vm.vfs_cache_pressure = 250
+# vm.vfs_cache_pressure = 250
 
 
 ## Network Configuration
 ## ----------------------------------------------------------------
 
 # Configure reverse path filtering
-net.ipv4.conf.default.rp_filter = 2
-net.ipv4.conf.all.rp_filter = 2
+# net.ipv4.conf.default.rp_filter = 2
+# net.ipv4.conf.all.rp_filter = 2
 
 # Disable source route acceptance
 net.ipv4.conf.all.accept_source_route = 0
 net.ipv4.conf.default.accept_source_route = 0
 
 # Neighbor table settings
-net.ipv4.neigh.default.gc_thresh1 = 512
-net.ipv4.neigh.default.gc_thresh2 = 2048
-net.ipv4.neigh.default.gc_thresh3 = 16384
-net.ipv4.neigh.default.gc_stale_time = 60
+# net.ipv4.neigh.default.gc_thresh1 = 512
+# net.ipv4.neigh.default.gc_thresh2 = 2048
+# net.ipv4.neigh.default.gc_thresh3 = 16384
+# net.ipv4.neigh.default.gc_stale_time = 60
 
 # ARP settings
-net.ipv4.conf.default.arp_announce = 2
-net.ipv4.conf.lo.arp_announce = 2
-net.ipv4.conf.all.arp_announce = 2
+# net.ipv4.conf.default.arp_announce = 2
+# net.ipv4.conf.lo.arp_announce = 2
+# net.ipv4.conf.all.arp_announce = 2
 
 # Kernel panic timeout
-kernel.panic = 1
+# kernel.panic = 1
 
 # Set dirty page ratio for virtual memory
 # vm.dirty_ratio = 20
@@ -467,8 +467,6 @@ net.ipv6.conf.all.accept_source_route = 0
 net.ipv6.conf.default.accept_source_route = 0
 # net.ipv4.tcp_ecn = 1
 # net.ipv4.tcp_fastopen = 3
-# net.core.default_qdisc = fq_codel
-net.ipv4.tcp_congestion_control = cubic
 
 
 ################################################################
