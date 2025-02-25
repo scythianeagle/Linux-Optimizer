@@ -52,7 +52,7 @@ ask_reboot() {
     yellow_msg 'Reboot now? (RECOMMENDED) (y/n)'
     echo 
     while true; do
-        read choice
+        read -r choice
         echo 
         if [[ "$choice" == 'y' || "$choice" == 'Y' ]]; then
             sleep 0.5
@@ -686,7 +686,7 @@ show_menu() {
 main() {
     while true; do
         show_menu
-        read -p 'Enter Your Choice: ' choice
+        read -rp 'Enter Your Choice: ' choice
         case $choice in
         1)
             apply_everything
