@@ -323,7 +323,7 @@ sysctl_optimizations() {
         -e '/net.ipv4.neigh.default.gc_stale_time/d' \
         -e '/net.ipv4.conf.default.arp_announce/d' \
         -e '/net.ipv4.conf.lo.arp_announce/d' \
-        -e '/net.ipv4.conf.all.arp_announce/d' \
+        -e '/net.ipv4.conf.all.arp_anaccept_redirectsnounce/d' \
         -e '/kernel.panic/d' \
         -e '/vm.dirty_ratio/d' \
         -e '/^#/d' \
@@ -366,6 +366,8 @@ net.ipv6.conf.default.accept_source_route = 0
 net.ipv6.conf.all.accept_ra = 0
 net.ipv6.conf.default.accept_ra = 0
 net.ipv4.tcp_slow_start_after_idle=0
+net.ipv4.tcp_ecn=0
+net.ipv4.tcp_fastopen=3
 
 ################################################################
 ################################################################
