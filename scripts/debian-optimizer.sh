@@ -291,12 +291,6 @@ cat <<EOF >> "$SYS_PATH"
 # /etc/sysctl.conf
 # These parameters in this file will be added/updated to the sysctl.conf file.
 # Read More: https://github.com/hawshemi/Linux-Optimizer/blob/main/files/sysctl.conf
-
-
-net.ipv4.ip_forward = 1
-fs.file-max = 67108864
-
-
 ## Network core settings
 ## ----------------------------------------------------------------
 
@@ -304,35 +298,35 @@ fs.file-max = 67108864
 # net.core.default_qdisc = fq_codel
 
 # Configure maximum network device backlog
-net.core.netdev_max_backlog = 32768
+# net.core.netdev_max_backlog = 32768
 
 # Set maximum socket receive buffer
-net.core.optmem_max = 262144
+# net.core.optmem_max = 262144
 
 # Define maximum backlog of pending connections
-net.core.somaxconn = 65536
+# net.core.somaxconn = 65536
 
 # Configure maximum TCP receive buffer size
-net.core.rmem_max = 33554432
+# net.core.rmem_max = 33554432
 
 # Set default TCP receive buffer size
-net.core.rmem_default = 1048576
+# net.core.rmem_default = 1048576
 
 # Configure maximum TCP send buffer size
-net.core.wmem_max = 33554432
+# net.core.wmem_max = 33554432
 
 # Set default TCP send buffer size
-net.core.wmem_default = 1048576
+#net.core.wmem_default = 1048576
 
 
 ## TCP settings
 ## ----------------------------------------------------------------
 
 # Define socket receive buffer sizes
-net.ipv4.tcp_rmem = 16384 1048576 33554432
+# net.ipv4.tcp_rmem = 16384 1048576 33554432
 
 # Specify socket send buffer sizes
-net.ipv4.tcp_wmem = 16384 1048576 33554432
+# net.ipv4.tcp_wmem = 16384 1048576 33554432
 
 # Set TCP congestion control algorithm to cubic
 net.ipv4.tcp_congestion_control = cubic
@@ -367,37 +361,14 @@ net.ipv4.tcp_congestion_control = cubic
 
 # Specify retries for TCP socket to establish connection
 # net.ipv4.tcp_retries2 = 8
-
-# Enable TCP SACK and DSACK
-net.ipv4.tcp_sack = 1
-net.ipv4.tcp_dsack = 1
 net.ipv4.tcp_slow_start_after_idle = 0
 # net.ipv4.tcp_window_scaling = 1
 # net.ipv4.tcp_adv_win_scale = -2
 
 # net.ipv4.tcp_ecn = 1
 # net.ipv4.tcp_ecn_fallback = 1
-net.ipv4.tcp_syncookies = 1
+# net.ipv4.tcp_syncookies = 1
 
-
-## UDP settings
-## ----------------------------------------------------------------
-
-# Define UDP memory limits
-net.ipv4.udp_mem = 65536 1048576 33554432
-
-
-## IPv6 settings
-## ----------------------------------------------------------------
-
-# Enable IPv6
-net.ipv6.conf.all.disable_ipv6 = 0
-
-# Enable IPv6 by default
-net.ipv6.conf.default.disable_ipv6 = 0
-
-# Enable IPv6 on the loopback interface (lo)
-net.ipv6.conf.lo.disable_ipv6 = 0
 
 
 ## UNIX domain sockets
@@ -414,7 +385,7 @@ net.ipv6.conf.lo.disable_ipv6 = 0
 # vm.min_free_kbytes = 65536
 
 # Define how aggressively swap memory pages are used
-vm.swappiness = 10
+# vm.swappiness = 10
 
 # Set the tendency of the kernel to reclaim memory used for caching of directory and inode objects
 # vm.vfs_cache_pressure = 250
@@ -465,8 +436,10 @@ net.ipv4.conf.all.accept_source_route = 0
 net.ipv4.conf.default.accept_source_route = 0
 net.ipv6.conf.all.accept_source_route = 0
 net.ipv6.conf.default.accept_source_route = 0
-# net.ipv4.tcp_ecn = 1
-# net.ipv4.tcp_fastopen = 3
+net.ipv4.tcp_slow_start_after_idle=0
+net.ipv4.tcp_ecn=0
+net.ipv4.tcp_fastopen=3
+
 
 
 ################################################################
