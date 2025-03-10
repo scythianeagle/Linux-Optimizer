@@ -54,7 +54,7 @@ ask_reboot() {
     yellow_msg 'Reboot now? (Recommended) (y/n)'
     echo 
     while true; do
-        read choice
+        read -r choice
         echo 
         if [[ "$choice" == 'y' || "$choice" == 'Y' ]]; then
             sleep 0.5
@@ -323,7 +323,7 @@ sysctl_optimizations() {
         -e '/net.ipv4.neigh.default.gc_stale_time/d' \
         -e '/net.ipv4.conf.default.arp_announce/d' \
         -e '/net.ipv4.conf.lo.arp_announce/d' \
-        -e '/net.ipv4.conf.all.arp_announce/d' \
+        -e '/net.ipv4.conf.all.arp_anaccept_redirectsnounce/d' \
         -e '/kernel.panic/d' \
         -e '/vm.dirty_ratio/d' \
         -e '/^#/d' \
@@ -366,6 +366,8 @@ net.ipv6.conf.default.accept_source_route = 0
 net.ipv6.conf.all.accept_ra = 0
 net.ipv6.conf.default.accept_ra = 0
 net.ipv4.tcp_slow_start_after_idle=0
+net.ipv4.tcp_ecn=0
+net.ipv4.tcp_fastopen=3
 
 ################################################################
 ################################################################
@@ -400,7 +402,7 @@ find_ssh_port() {
              sleep 0.5
          else
             echo 
-            "green_msg "SSH port is default 22."
+            green_msg "SSH port is default 22."
             echo 
             SSH_PORT=22
             sleep 0.5
@@ -547,44 +549,7 @@ limits_optimizations() {
     echo 
     sleep 0.5
 }
-
-
-# UFW Optimizations
-#ufw_optimizations() {
-    #echo
-    #yellow_msg 'Installing & Optimizing UFW...'
-    #echo 
-    #sleep 0.5
-
-    ## Purge firewalld to install UFW.
-    #sudo apt -y purge firewalld
     
-    ## Install UFW if it isn't installed.
-    #sudo apt update -q
-    #sudo apt install -y ufw
-
-    ## Disable UFW
-     #sudo ufw disable
-
-    ## Open default ports.
-    #sudo ufw allow $SSH_PORT
-    #sudo ufw allow 80/tcp
-    #sudo ufw allow 80/udp
-    #sudo ufw allow 443/tcp
-    #sudo ufw allow 443/udp
-    #sleep 0.5
-
-    ## Change the UFW config to use System config.
-    #sed -i 's+/etc/ufw/sysctl.conf+/etc/sysctl.conf+gI' /etc/default/ufw
-
-    ## Enable & Reload
-    #echo "y" | sudo ufw enable
-    #sudo ufw reload
-    #echo 
-    #green_msg 'UFW is Installed & Optimized. (Open your custom ports manually.)'
-    #echo 
-    #sleep 0.5
-#}
 
 
 # Show the Menu
@@ -618,7 +583,7 @@ show_menu() {
 main() {
     while true; do
         show_menu
-        read -p 'Enter Your Choice: ' choice
+        read -rp 'Enter Your Choice: ' choice
         case $choice in
         1)
             apply_everything
