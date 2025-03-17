@@ -363,21 +363,11 @@ net.ipv6.conf.default.accept_source_route = 0
 net.ipv6.conf.all.accept_ra = 0
 net.ipv6.conf.default.accept_ra = 0
 net.ipv4.tcp_slow_start_after_idle = 0
-fs.file-max = 2097152
-vm.vfs_cache_pressure = 50
-vm.swappiness = 10
-vm.dirty_ratio = 15
-vm.dirty_background_ratio = 5
-vm.vfs_cache_pressure = 50
-vm.overcommit_memory = 2
 fs.suid_dumpable = 0
 fs.suid_dumpable = 0
 fs.suid_dumpable = 0
 kernel.threads-max = 100000
 net.ipv4.tcp_window_scaling = 1
-net.ipv4.tcp_fastopen = 3
-net.ipv4.tcp_tw_reuse = 1
-net.ipv4.tcp_tw_recycle = 1
 net.ipv4.tcp_syncookies = 1
 
 ################################################################
