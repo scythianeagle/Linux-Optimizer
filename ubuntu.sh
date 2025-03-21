@@ -363,12 +363,20 @@ net.ipv6.conf.default.accept_source_route = 0
 net.ipv6.conf.all.accept_ra = 0
 net.ipv6.conf.default.accept_ra = 0
 net.ipv4.tcp_slow_start_after_idle = 0
-fs.suid_dumpable = 0
-fs.suid_dumpable = 0
-fs.suid_dumpable = 0
-kernel.threads-max = 100000
 net.ipv4.tcp_window_scaling = 1
-net.ipv4.tcp_syncookies = 1
+net.core.rmem_max = 16777216
+net.core.wmem_max = 16777216
+net.ipv4.tcp_rmem = 4096 87380 16777216
+net.ipv4.tcp_wmem = 4096 65536 16777216
+net.ipv4.tcp_window_scaling = 1
+net.ipv4.tcp_timestamps = 1
+net.ipv4.tcp_sack = 1
+net.ipv4.tcp_fastopen = 3
+net.core.netdev_max_backlog = 5000
+net.ipv4.tcp_max_syn_backlog = 8192
+fs.file-max = 2097152
+net.ipv4.tcp_fin_timeout = 15
+net.ipv4.tcp_tw_reuse = 1
 
 ################################################################
 ################################################################
